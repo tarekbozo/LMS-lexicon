@@ -5,7 +5,7 @@
 </head>
 <body ng-app="LMSApp">
     <a href="/#/home">Home</a>
-    <div ui-view></div>
+    <div ui-view ng-controller="HomeController" ng-init="getData()">{{data}}</div>
 
     <script src="Scripts/Angular/angular.min.js"></script>
     <script src="Scripts/Angular/Main.js"></script>
