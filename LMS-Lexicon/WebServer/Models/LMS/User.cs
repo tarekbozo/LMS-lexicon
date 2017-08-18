@@ -8,7 +8,6 @@ using System.Web;
 namespace WebServer.Models.LMS
 {
     public class User : ApplicationUser
-   
     {
         [Display(Name = "First name")]
         [CustomValidation(typeof(User), "ValidateFirstName")]
