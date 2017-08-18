@@ -6,6 +6,7 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
+using System.Web.Http.Cors;
 
 namespace WebServer
 {
@@ -13,7 +14,8 @@ namespace WebServer
     {
         public static void Register(HttpConfiguration config)
         {
-            config.EnableCors();
+            var cors = new EnableCorsAttribute("*", "*", "*","*");
+            config.EnableCors(cors);
 
             config.MapHttpAttributeRoutes();
 

@@ -7,6 +7,7 @@ var app = angular.module("LMSApp");
                 .then(function (response) {
                     $scope.data = response.data;
                 })
+            window.open('http://localhost:51942/api/HomeAPI/GetXLSFile/');
         };
     }]);
 
