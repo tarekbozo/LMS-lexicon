@@ -6,7 +6,7 @@ var app = angular.module("LMSApp");
             $http.get('http://localhost:51942/api/HomeAPI/Get/')
                 .then(function (response) {
                     $scope.data = response.data;
-                })
+                });
         };
         $scope.DownloadExcelFile = function () {
             window.open('http://localhost:51942/api/HomeAPI/GetXLSFile/');
