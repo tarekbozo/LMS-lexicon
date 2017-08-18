@@ -40,17 +40,21 @@ namespace WebServer.Controllers
                 //Access first worksheet from the workbook instance.
                 IWorksheet worksheet = workbook.Worksheets[0];
 
-                //Insert sample text into cell “A1”.
-                worksheet.Range["A1"].Text = "Hello World";
-                worksheet.Range["C1"].Text = "API Call1";
-                worksheet.Range["C2"].Text = "API Call2";
-                worksheet.Range["C3"].Text = "API Call3";
-                worksheet.Range["C4"].Text = "API Call4";
+                //Insert Values into cell “A1,B1,A2,B2” and see what happens.
+                worksheet.Range["A1"].Text = "FirstName:";
+                worksheet.Range["B1"].Text = "LastName";
+                worksheet.Range["C1"].Text = "Attendance";
+                
+                worksheet.Range["A2"].Text = "API Call3";
+                worksheet.Range["B2"].Text = "API Call4";
+                worksheet.Range["C2"].Text = "API Call4";
+                worksheet.Range["A3"].Text = "API Call3";
+                worksheet.Range["B3"].Text = "API Call4";
+                worksheet.Range["C3"].Text = "API Call4";
                 //Save the workbook to disk in xlx format.
-                HttpResponse debug = HttpContext.Current.ApplicationInstance.Response;
-                debug.AppendHeader("Access-Control-Allow-Origin", "*");
-
-                workbook.SaveAs("Attendance.xls", debug, ExcelDownloadType.Open);
+                HttpResponse response = HttpContext.Current.ApplicationInstance.Response;
+                response.AppendHeader("Access-Control-Allow-Origin", "*");
+                workbook.SaveAs("Attendance.xls",response, ExcelDownloadType.Open);
             }
         }
 
