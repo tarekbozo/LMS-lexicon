@@ -42,9 +42,9 @@ namespace WebServer.Models.LMS
         public int CourseID { get; set; }
         public virtual Course Course { get; set; }
 
-        //[ForeignKey("Classroom")]
-        //public int ClassroomID { get; set; }
-        //public virtual Classroom Classroom { get; set; }
+        [ForeignKey("Classroom")]
+        public int ClassroomID { get; set; }
+        public virtual Classroom Classroom { get; set; }
 
         public virtual ICollection<User> Students { get; set; }
 
