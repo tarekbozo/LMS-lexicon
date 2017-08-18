@@ -6,8 +6,6 @@ using System.Web;
 
 namespace WebServer.Models.LMS
 {
-    public class Role
-    {
         public static class RoleConstants
         {
             public static string Student
@@ -59,5 +57,4 @@ namespace WebServer.Models.LMS
 
             public virtual ICollection<Document> Documents { get; set; }
         }
-    }
 }
