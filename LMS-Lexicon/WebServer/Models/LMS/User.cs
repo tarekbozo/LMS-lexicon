@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -25,6 +26,11 @@ namespace WebServer.Models.LMS
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<Schedule> Schedules { get; set; }
+        public virtual ICollection<Attendance> Attendances { get; set; }
+
+        [ForeignKey("Internship")]
+        public int? InternshipID { get; set; }
+        public virtual Internship Internship { get; set; } 
 
         public override string ToString()
         {

@@ -7,26 +7,16 @@ using System.Web;
 
 namespace WebServer.Models.LMS
 {
-    public class Attendance
-    {
-        [Key]
-        public int ID { get; set; }
-
-        [Display(Name = "Week day")]
-        public WeekDays WeekDay { get; set; }
-
-        [Display(Name = "First name")]
-        public string FirstName { get; set; }
-
-        [Display(Name = "Last name")]
-        public string LastName { get; set; }
-
-        [Display(Name = "Birth Date")]
-        public string BirthDate { get; set; }
-
-        [Required]
-        [ForeignKey("Student")]
-        public int UserID { get; set; }
-        public virtual User Student { get; set; }
-    }
+ public class Attendance
+    {
+        [Key]
+        public int ID { get; set; }
+        public DateTime Date { get; set; }
+        [Required]
+        [ForeignKey("Course")]
+        public int CourseID {get;set;}
+        public virtual Course Course{get;set;}
+        [Required]
+        public virtual ICollection<User> Students {get; set;}
+    }
 }
