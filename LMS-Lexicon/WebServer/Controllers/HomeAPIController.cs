@@ -51,10 +51,9 @@ namespace WebServer.Controllers
                 worksheet.Range["B3"].Text = "API Call4";
                 worksheet.Range["C3"].Text = "API Call4";
                 //Save the workbook to disk in xlx format.
-                HttpResponse debug = HttpContext.Current.ApplicationInstance.Response;
-                debug.AppendHeader("Access-Control-Allow-Origin", "*");
-
-                workbook.SaveAs("Attendance.xls", debug, ExcelDownloadType.Open);
+                HttpResponse response = HttpContext.Current.ApplicationInstance.Response;
+                response.AppendHeader("Access-Control-Allow-Origin", "*");
+                workbook.SaveAs("Attendance.xls",response, ExcelDownloadType.Open);
             }
         }
 
