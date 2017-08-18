@@ -284,10 +284,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\LMS-Lexicon.mdf" />
-    <Content Include="App_Data\LMS-Lexicon_log.ldf">
-      <DependentUpon>LMS-Lexicon.mdf</DependentUpon>
-    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -340,7 +336,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DataAccess\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
