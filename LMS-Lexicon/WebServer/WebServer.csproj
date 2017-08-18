@@ -47,7 +47,58 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ExcelDataReader">
+      <HintPath>..\packages\ExcelDataReader.3.1.0\lib\net45\ExcelDataReader.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Syncfusion.Compression.Base">
+      <HintPath>..\packages\Syncfusion.Web.FileFormatsBase45.15.3.0.26\lib\net45\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.DocIO.Base">
+      <HintPath>..\packages\Syncfusion.Web.FileFormatsBase45.15.3.0.26\lib\net45\Syncfusion.DocIO.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.DocIO.Helper.Mvc">
+      <HintPath>..\packages\Syncfusion.AspNet.Mvc5.FileFormatsHelper.15.3.0.26\lib\net45\Syncfusion.DocIO.Helper.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.DocToPDFConverter.Base">
+      <HintPath>..\packages\Syncfusion.AspNet.Mvc5.FileFormats.15.3.0.26\lib\net45\Syncfusion.DocToPDFConverter.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.ExcelChartToImageConverter.WPF">
+      <HintPath>..\packages\Syncfusion.AspNet.Mvc5.FileFormats.15.3.0.26\lib\net45\Syncfusion.ExcelChartToImageConverter.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.ExcelToPDFConverter.Base">
+      <HintPath>..\packages\Syncfusion.AspNet.Mvc5.FileFormats.15.3.0.26\lib\net45\Syncfusion.ExcelToPDFConverter.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.HtmlConverter.Base">
+      <HintPath>..\packages\Syncfusion.AspNet.Mvc5.FileFormats.15.3.0.26\lib\net45\Syncfusion.HtmlConverter.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.OfficeChart.Base">
+      <HintPath>..\packages\Syncfusion.Web.FileFormatsBase45.15.3.0.26\lib\net45\Syncfusion.OfficeChart.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.OfficeChartToImageConverter.WPF">
+      <HintPath>..\packages\Syncfusion.AspNet.Mvc5.FileFormats.15.3.0.26\lib\net45\Syncfusion.OfficeChartToImageConverter.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base">
+      <HintPath>..\packages\Syncfusion.Web.FileFormatsBase45.15.3.0.26\lib\net45\Syncfusion.Pdf.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Helper.Mvc">
+      <HintPath>..\packages\Syncfusion.AspNet.Mvc5.FileFormatsHelper.15.3.0.26\lib\net45\Syncfusion.Pdf.Helper.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Presentation.Base">
+      <HintPath>..\packages\Syncfusion.Web.FileFormatsBase45.15.3.0.26\lib\net45\Syncfusion.Presentation.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.PresentationToPDFConverter.Base">
+      <HintPath>..\packages\Syncfusion.AspNet.Mvc5.FileFormats.15.3.0.26\lib\net45\Syncfusion.PresentationToPDFConverter.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.WPF">
+      <HintPath>..\packages\Syncfusion.AspNet.Mvc5.FileFormats.15.3.0.26\lib\net45\Syncfusion.SfChart.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.XlsIO.Base">
+      <HintPath>..\packages\Syncfusion.Web.FileFormatsBase45.15.3.0.26\lib\net45\Syncfusion.XlsIO.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.XlsIO.Helper.Mvc">
+      <HintPath>..\packages\Syncfusion.AspNet.Mvc5.FileFormatsHelper.15.3.0.26\lib\net45\Syncfusion.XlsIO.Helper.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -285,6 +336,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\web.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -21,7 +21,6 @@ using System.Web.Http.Cors;
 namespace WebServer.Controllers
 {
     [Authorize]
-    [EnableCors(origins: "http://localhost:52146", headers: "*", methods: "*")]
     [RoutePrefix("api/Account")]
     public class AccountAPIController : ApiController
     {
