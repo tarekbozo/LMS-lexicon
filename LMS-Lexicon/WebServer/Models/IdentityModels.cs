@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using System.Data.Entity;
+using WebServer.Models.LMS;
 
 namespace WebServer.Models
 {
@@ -29,5 +31,20 @@ namespace WebServer.Models
         {
             return new ApplicationDbContext();
         }
+
+
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<Classroom> Classrooms { get; set; }
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<User> LMSUsers { get; set; }
+        public DbSet<Role> LMSRoles { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Internship> Internships { get; set; }
+
     }
 }

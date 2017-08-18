@@ -22,6 +22,7 @@ namespace WebServer.Models.LMS
 
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<Schedule> Schedules { get; set; }
+        public virtual ICollection<Attendance> Attendances { get; set; }
     }
     
 }

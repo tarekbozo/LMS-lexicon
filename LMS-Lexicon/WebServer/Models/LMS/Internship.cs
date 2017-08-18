@@ -7,22 +7,15 @@ using System.Web;
 
 namespace WebServer.Models.LMS
 {
-    public class Internship
-    {
-        [Key]
-        public int ID { get; set; }
-        public string CompanyName { get; set; }
-
-        [Display(Name = "Starting date")]
-        public string StartingDate { get; set; }
-
-        [Required]
-        [Display(Name = "Ending date")]
-        public string EndingDate { get; set; }
-
-        [Required]
-        [ForeignKey("Student")]
-        public int UserID { get; set; }
-        public virtual User Student { get; set; }
-    }
+ public class Internship
+    {
+        [Key]
+        public int ID { get; set; }
+        public string CompanyName { get; set; }
+        [Display(Name = "Starting date")]
+        public string StartingDate { get; set; }
+        [Display(Name = "Ending date")]
+        public string EndingDate { get; set; }
+        public virtual ICollection<User> Students { get; set; }
+    }
 }
