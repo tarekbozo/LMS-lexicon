@@ -39,7 +39,7 @@ namespace WebServer.Controllers
                 //Access first worksheet from the workbook instance.
                 IWorksheet worksheet = workbook.Worksheets[0];
 
-                //Insert sample text into cell “A1”.
+                //Insert Values into cell “A1,B1,A2,B2” and see what happens.
                 worksheet.Range["A1"].Text = "FirstName:";
                 worksheet.Range["B1"].Text = "LastName";
                 worksheet.Range["C1"].Text = "Attendance";
