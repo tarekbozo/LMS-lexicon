@@ -5,7 +5,12 @@
 </head>
 <body ng-app="LMSApp">
     <a href="/#/home">Home</a>
-    <div ui-view ng-controller="HomeController" ng-init="getData()">{{data}}</div>
+    <div ui-view ng-controller="HomeController" ng-init="getData()">{{data}}
+        <button ng-click="DownloadExcelFile()">Download Excel File</button>    
+    </div>
+
+
+
 
     <script src="Scripts/Angular/angular.min.js"></script>
     <script src="Scripts/Angular/Main.js"></script>
