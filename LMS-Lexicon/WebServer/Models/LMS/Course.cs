@@ -9,7 +9,7 @@ namespace WebServer.Models.LMS
 {
     public class Course
     {
-         [Key]
+        [Key]
         public int ID { get; set; }
 
         [ForeignKey("Subject")]
