@@ -257,9 +257,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\API\AccountController.cs" />
-    <Compile Include="Controllers\API\CoursesController.cs" />
-    <Compile Include="Controllers\API\HomeController.cs" />
+    <Compile Include="Controllers\AccountAPIController.cs" />
+    <Compile Include="Controllers\HomeAPIController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -335,6 +334,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataAccess\" />

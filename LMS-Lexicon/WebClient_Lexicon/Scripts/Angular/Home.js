@@ -3,13 +3,13 @@ var app = angular.module("LMSApp");
     app.controller("HomeController", ["$scope", "$http", function ($scope, $http) {
 
         $scope.getData = function () {
-            $http.get('http://localhost:51942/api/Home/Get/')
+            $http.get('http://localhost:51942/api/HomeAPI/Get/')
                 .then(function (response) {
                     $scope.data = response.data;
                 });
         };
         $scope.DownloadExcelFile = function () {
-            window.open('http://localhost:51942/api/Home/GetXLSFile/');
+            window.open('http://localhost:51942/api/HomeAPI/GetXLSFile/');
         };
 
     }]);
