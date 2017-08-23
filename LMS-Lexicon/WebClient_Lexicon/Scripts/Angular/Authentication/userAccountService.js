@@ -24,6 +24,8 @@
             }).then(function (response) {
                 console.log(response.data);
                 deferred.resolve(response.data);
+            }, function (err) {
+                alert("Account Couldn't be created, make sure the password contains a special character, a number and is at minimum 6 letters.");
             })
             return deferred.promise;
         }
@@ -43,6 +45,8 @@
                 // check the log screen to know currently back from the server when a user log in successfully.
                 console.log(response.data);
                 deferred.resolve(response.data);
+            }, function (err) {
+                alert("The Username/Email or password is incorrect, please try again.");
             })
             return deferred.promise;
         }

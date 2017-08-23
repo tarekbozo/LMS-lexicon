@@ -5,8 +5,7 @@
     var id = 'LMSApp';
 
     // Create the module and define its dependencies.
-    var app = angular.module('LMSApp', [
-    ]);
+    var app = angular.module('LMSApp', ['ngRoute']);
 
     app.config(['$httpProvider', function ($httpProvider) {
         // Use x-www-form-urlencoded Content-Type
@@ -54,8 +53,25 @@
 
             return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
         }];
+
     }]);
 
+    app.config(
+        function ($locationProvider, $routeProvider) {
+        $locationProvider.html5Mode(true);
+        $routeProvider.
+        when('/', {
+            templateUrl: 'Views/Home/Home.html',
+            controller: 'HomeController'
+        }).
+        when('/Account', {
+            templateUrl: 'Views/Account/Account.html',
+            controller: 'AccountCtrl'
+        }).
+        otherwise({
+            redirectTo: '/'
+        });
+  });
     // Execute bootstrapping code and any dependencies.
     app.run(['$q', '$rootScope',
         function ($q, $rootScope) {
