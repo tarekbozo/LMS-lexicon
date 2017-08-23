@@ -10,7 +10,7 @@ using System.Web.Http.Cors;
 
 namespace WebServer.Controllers
 {
-    public class HomeAPIController : ApiController
+    public class HomeController : ApiController
     {
         // GET api/values
         public IEnumerable<string> Get()
