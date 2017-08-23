@@ -258,7 +258,18 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountAPIController.cs" />
+    <Compile Include="Controllers\AttendancesAPIController.cs" />
+    <Compile Include="Controllers\ClassroomsAPIController.cs" />
+    <Compile Include="Controllers\CoursesAPIController.cs" />
+    <Compile Include="Controllers\DocumentsAPIController.cs" />
+    <Compile Include="Controllers\GradesAPIController.cs" />
     <Compile Include="Controllers\HomeAPIController.cs" />
+    <Compile Include="Controllers\InternshipsAPIController.cs" />
+    <Compile Include="Controllers\NewsAPIController.cs" />
+    <Compile Include="Controllers\NotificationAPIsController.cs" />
+    <Compile Include="Controllers\SchedulesAPIController.cs" />
+    <Compile Include="Controllers\SubjectsAPIController.cs" />
+    <Compile Include="Controllers\UsersAPIController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -280,6 +291,18 @@
     <Compile Include="Models\LMS\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Repository\AttendanceRepository.cs" />
+    <Compile Include="Repository\ClassroomRepository.cs" />
+    <Compile Include="Repository\CourseRepository.cs" />
+    <Compile Include="Repository\DocumentRepository.cs" />
+    <Compile Include="Repository\GradeRepository.cs" />
+    <Compile Include="Repository\IntershipRepository.cs" />
+    <Compile Include="Repository\NewsRepository.cs" />
+    <Compile Include="Repository\NotificationRepository.cs" />
+    <Compile Include="Repository\RoleRepository.cs" />
+    <Compile Include="Repository\ScheduleRepository.cs" />
+    <Compile Include="Repository\SubjectRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -338,7 +361,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataAccess\" />
-    <Folder Include="Repository\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
