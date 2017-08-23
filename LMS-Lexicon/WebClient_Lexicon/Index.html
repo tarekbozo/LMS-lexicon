@@ -16,7 +16,7 @@
         
         <span data-ng-hide="vm.isRegistered">Register</span>
         <div data-ng-hide="vm.isRegistered">
-            <input type="text" name="email" placeholder="Email or Username" data-ng-model="vm.registerUserData.email" />
+            <input type="text" name="email" placeholder="Username" data-ng-model="vm.registerUserData.email" />
             <input name="password" type="password" placeholder="Password" data-ng-model="vm.registerUserData.password" />
             <input name="confirmPassword" type="password"placeholder="Password" data-ng-model="vm.registerUserData.confirmPassword" />
             <input type="button" id="registerUser" value="Register" data-ng-click="vm.registerUser()" />

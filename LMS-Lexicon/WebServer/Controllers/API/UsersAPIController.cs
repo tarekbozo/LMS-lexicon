@@ -20,14 +20,14 @@ namespace WebServer.Controllers
         // GET: api/UsersAPI
         public IQueryable<User> GetUsers()
         {
-            return db.Users;
+            return db.LMSUsers;
         }
 
         // GET: api/UsersAPI/5
         [ResponseType(typeof(User))]
         public IHttpActionResult GetUser(string id)
         {
-            User user = db.Users.Find(id);
+            User user = db.LMSUsers.Find(id);
             if (user == null)
             {
                 return NotFound();
@@ -105,7 +105,7 @@ namespace WebServer.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult DeleteUser(string id)
         {
-            User user = db.Users.Find(id);
+            User user = db.LMSUsers.Find(id);
             if (user == null)
             {
                 return NotFound();
