@@ -270,6 +270,11 @@
     <Compile Include="Controllers\SchedulesAPIController.cs" />
     <Compile Include="Controllers\SubjectsAPIController.cs" />
     <Compile Include="Controllers\UsersAPIController.cs" />
+    <Compile Include="Controllers\API\AccountController.cs" />
+    <Compile Include="Controllers\API\AttendancesController.cs" />
+    <Compile Include="Controllers\API\CoursesController.cs" />
+    <Compile Include="Controllers\API\HomeController.cs" />
+    <Compile Include="Controllers\API\SubjectsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -303,6 +308,7 @@
     <Compile Include="Repository\ScheduleRepository.cs" />
     <Compile Include="Repository\SubjectRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repository\AttendancesRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
