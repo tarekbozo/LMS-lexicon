@@ -16,21 +16,22 @@ using WebServer.Repository;
 
 namespace WebServer.Controllers.API
 {
+    [Authorize(Roles="Admin,Teacher")]
     public class AttendancesController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private AttendancesRepository aRepo = new AttendancesRepository();
 
         // GET: api/Attendances
         public IQueryable<Attendance> GetAttendances()
         {
-            return db.Attendances;
+            return aRepo.Attendances().AsQueryable();
         }
 
         // GET: api/Attendances/5
         [ResponseType(typeof(Attendance))]
         public IHttpActionResult GetAttendance(int id)
         {
-            Attendance attendance = db.Attendances.Find(id);
+            Attendance attendance = aRepo.GetAttendance(id);
             if (attendance == null)
             {
                 return NotFound();
@@ -41,33 +42,31 @@ namespace WebServer.Controllers.API
 
         // PUT: api/Attendances/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutAttendance(int id, Attendance attendance)
+        public IHttpActionResult EditAttendance(int id, Attendance attendance)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != attendance.ID)
+            else if (id != attendance.ID)
             {
                 return BadRequest();
             }
 
-            db.Entry(attendance).State = EntityState.Modified;
-
             try
             {
-                db.SaveChanges();
+                aRepo.Edit(attendance);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AttendanceExists(id))
+                if (aRepo.GetAttendance(id)==null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    throw;
+                    return BadRequest();
                 }
             }
 
@@ -82,16 +81,13 @@ namespace WebServer.Controllers.API
             {
                 return BadRequest(ModelState);
             }
-
-            db.Attendances.Add(attendance);
-            db.SaveChanges();
-
+            aRepo.Add(attendance);
             return CreatedAtRoute("DefaultApi", new { id = attendance.ID }, attendance);
         }
         [HttpGet]
         public IHttpActionResult GetAttendanceAsXLSFile(int id)
         {
-            Attendance attendance = new AttendancesRepository().GetAttendance(id);
+            Attendance attendance = aRepo.GetAttendance(id);
             if (attendance != null)
             {
                 //Create an instance of ExcelEngine.
@@ -138,30 +134,14 @@ namespace WebServer.Controllers.API
         [ResponseType(typeof(Attendance))]
         public IHttpActionResult DeleteAttendance(int id)
         {
-            Attendance attendance = db.Attendances.Find(id);
+            Attendance attendance = aRepo.GetAttendance(id);
             if (attendance == null)
             {
                 return NotFound();
             }
 
-            db.Attendances.Remove(attendance);
-            db.SaveChanges();
-
+            aRepo.Delete(id);
             return Ok(attendance);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool AttendanceExists(int id)
-        {
-            return db.Attendances.Count(e => e.ID == id) > 0;
         }
     }
 }

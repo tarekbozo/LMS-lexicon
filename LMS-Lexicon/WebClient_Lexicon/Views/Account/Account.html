@@ -6,8 +6,8 @@
     </div>
     <br />
 
-    <span data-ng-hide="vm.isRegistered">Register</span>
-    <div data-ng-hide="vm.isRegistered">
+    <span data-ng-hide="vm.isLoggedIn || vm.isRegistered">Register</span>
+    <div data-ng-hide="vm.isRegistered || vm.isRegistered">
         <input type="text" name="email" placeholder="Username" data-ng-model="vm.registerUserData.email" />
         <input name="password" type="password" placeholder="Password" data-ng-model="vm.registerUserData.password" />
         <input name="confirmPassword" type="password" placeholder="Password" data-ng-model="vm.registerUserData.confirmPassword" />
@@ -15,7 +15,7 @@
     </div>
 
     <br />
-    <div data-ng-hide="vm.isLoggedIn">
+    <div data-ng-hide="vm.isLoggedIn ">
         <span>Login</span>
         <div>
             <input type="text" name="email" placeholder="Email" data-ng-model="vm.loginUserData.userName" />
