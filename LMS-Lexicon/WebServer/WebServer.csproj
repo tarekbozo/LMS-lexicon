@@ -266,7 +266,7 @@
     <Compile Include="Controllers\HomeAPIController.cs" />
     <Compile Include="Controllers\InternshipsAPIController.cs" />
     <Compile Include="Controllers\NewsAPIController.cs" />
-    <Compile Include="Controllers\NotificationAPIsController.cs" />
+    <Compile Include="Controllers\NotificationsAPIController.cs" />
     <Compile Include="Controllers\SchedulesAPIController.cs" />
     <Compile Include="Controllers\SubjectsAPIController.cs" />
     <Compile Include="Controllers\UsersAPIController.cs" />
