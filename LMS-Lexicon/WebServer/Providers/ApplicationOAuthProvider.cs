@@ -29,6 +29,11 @@ namespace WebServer.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] {"*"});
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "authorization" });
+
+
+
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);

@@ -1,20 +1,54 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>LMS_Lexicon</title>
+    <title></title>
 </head>
-<body ng-app="LMSApp">
-    <a href="/#/home">Home</a>
-    <div ui-view ng-controller="HomeController" ng-init="getData()">{{data}}
-        <button ng-click="DownloadExcelFile()">Download Excel File</button>    
+<body >
+    <div data-ng-app="LMSApp" data-ng-controller="AccountCtrl as vm">
+        <h3> LMS_Lexicon</h3>
+
+        <div>
+            <span data-ng-show="vm.isRegistered">User Registered Successfully</span><br />
+            <span data-ng-show="vm.isLoggedIn">Hello : {{vm.userName}}</span><br />
+            <span data-ng-show="vm.isLoggedIn">Your Bearer Token is : {{vm.bearerToken}}</span>
+        </div>
+        <br />
+        
+        <span data-ng-hide="vm.isRegistered">Register</span>
+        <div data-ng-hide="vm.isRegistered">
+            <input type="text" name="email" placeholder="Email or Username" data-ng-model="vm.registerUserData.email" />
+            <input name="password" type="password" placeholder="Password" data-ng-model="vm.registerUserData.password" />
+            <input name="confirmPassword" type="password"placeholder="Password" data-ng-model="vm.registerUserData.confirmPassword" />
+            <input type="button" id="registerUser" value="Register" data-ng-click="vm.registerUser()" />
+        </div>
+        
+        <br/>
+        <div data-ng-hide="vm.isLoggedIn">
+        <span>Login</span>
+        <div>
+            <input type="text" name="email" placeholder="Email" data-ng-model="vm.loginUserData.userName" />
+            <input type="password" name="password" placeholder="Password" data-ng-model="vm.loginUserData.password" />
+            <input type="button" id="logniUser" value="Login" data-ng-click="vm.loginUser()" />
+        </div>
+        </div>
+        <div data-ng-show="vm.isLoggedIn">
+            <input type="button" id="logOut" value="LogOut" data-ng-click="vm.logOutUser()"/>
+        </div>
+        <button id="getValues" data-ng-click="vm.getValues()">Get Values</button>
+
+        <ul>
+            <li data-ng-repeat="v in vm.values">
+                <div>
+                    <strong>{{v}}</strong>
+                </div>
+            </li>
+        </ul>
+
     </div>
-
-
-
-
-    <script src="Scripts/Angular/angular.min.js"></script>
+    <script src="Scripts/angular.js"></script>
     <script src="Scripts/Angular/Main.js"></script>
-    <script src="Scripts/Angular/Home.js"></script>
-    <script src="Scripts/Angular/AngularUI/angular-ui-router.min.js"></script>
+    <script src="Scripts/Angular/Authentication/accountCtrl.js"></script>
+    <script src="Scripts/Angular/Authentication/userAccountService.js"></script>
+
 </body>
 </html>
