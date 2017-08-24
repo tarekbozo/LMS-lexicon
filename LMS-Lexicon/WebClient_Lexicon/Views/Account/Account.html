@@ -1,32 +1,26 @@
 ﻿<div ng-controller="AccountCtrl as vm">
-    <div>
         <span data-ng-show="vm.isRegistered">User Registered Successfully</span><br />
         <span data-ng-show="vm.isLoggedIn">Hello : {{vm.userName}}</span><br />
         <span data-ng-show="vm.isLoggedIn">Your Bearer Token is : {{vm.bearerToken}}</span>
-    </div>
-    <br />
-
-    <span data-ng-hide="vm.isRegistered">Register</span>
-    <div data-ng-hide="vm.isRegistered">
-        <input type="text" name="email" placeholder="Username" data-ng-model="vm.registerUserData.email" />
-        <input name="password" type="password" placeholder="Password" data-ng-model="vm.registerUserData.password" />
-        <input name="confirmPassword" type="password" placeholder="Password" data-ng-model="vm.registerUserData.confirmPassword" />
-        <input type="button" id="registerUser" value="Register" data-ng-click="vm.registerUser()" />
-    </div>
-
-    <br />
-    <div data-ng-hide="vm.isLoggedIn">
-        <span>Login</span>
-        <div>
-            <input type="text" name="email" placeholder="Email" data-ng-model="vm.loginUserData.userName" />
-            <input type="password" name="password" placeholder="Password" data-ng-model="vm.loginUserData.password" />
-            <input type="button" id="logniUser" value="Login" data-ng-click="vm.loginUser()" />
+    <span data-ng-hide="vm.isLoggedIn || vm.isRegistered">Register</span>
+        <div data-ng-hide="vm.isRegistered || vm.isRegistered">
+            <input class="form-control" type="text" name="email" placeholder="Username" data-ng-model="vm.registerUserData.email" />
+            <input class="form-control" name="password" type="password" placeholder="Password" data-ng-model="vm.registerUserData.password" />
+            <input class="form-control" name="confirmPassword" type="password" placeholder="Confirm Password" data-ng-model="vm.registerUserData.confirmPassword" />
+            <input class="btn-primary" type="button" id="registerUser" value="Register" data-ng-click="vm.registerUser()" />
         </div>
-    </div>
+      <div data-ng-hide="vm.isLoggedIn ">
+        <span>Login</span>
+            <div>
+                <input class="form-control" type="text" name="email" placeholder="Email" data-ng-model="vm.loginUserData.userName" />
+                <input class="form-control" type="password" name="password" placeholder="Password" data-ng-model="vm.loginUserData.password" />
+                <input class="btn-primary" type="button" id="logniUser" value="Login" data-ng-click="vm.loginUser()" />
+            </div>
+        </div>
     <div data-ng-show="vm.isLoggedIn">
-        <input type="button" id="logOut" value="LogOut" data-ng-click="vm.logOutUser()" />
+        <input class="btn-primary" type="button" id="logOut" value="LogOut" data-ng-click="vm.logOutUser()" />
     </div>
-    <button id="getValues" data-ng-click="vm.getValues()">Get Values</button>
+    <button class="btn-danger"id="getValues" data-ng-click="vm.getValues()">Get Values</button>
 
     <ul>
         <li data-ng-repeat="v in vm.values">

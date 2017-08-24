@@ -1,23 +1,32 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="Content/bootstrap.css" type="text/css"/>
+    <!--<link rel="stylesheet" href="Content/bootstrap-Slate.css" type="text/css"/>-->
+    <link rel="stylesheet" href="Content/Site.css" type="text/css"/>
+
+    <title>LMSApp</title>
     <base href="/">
 </head>
 <body>
     <div data-ng-app="LMSApp">
         <h3> LMS_Lexicon</h3>
-
         <h1>Partial-View</h1>
         <a href="/Home">Home View</a>
         <a href="/Account">Account View</a>
 
         <div ng-view></div>
     </div>
-
+    <footer class="footer">
+        <p class="text-danger">&copy; 2017 - LMS Lexicon - Ahmad, Anton</p>
+    </footer>
     <!--Include all scripts here-->
-    <script type="text/javascript" src="Scripts/angular.min.js"></script>
-    <script type="text/javascript" src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <!--Controllers and other important scripts-->
     <script src="Scripts/Angular/Main.js"></script>
     <script src="Scripts/Angular/Home.js"></script>
     <script src="Scripts/Angular/Authentication/accountCtrl.js"></script>

@@ -10,110 +10,39 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebServer.Models;
 using WebServer.Models.LMS;
+using WebServer.Repository;
 
 namespace WebServer.Controllers.API
 {
     public class SubjectsController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
-        // GET: api/Subjects
-        public IQueryable<Subject> GetSubjects()
+        [HttpGet]
+        public List<Subject> GetAllSubjects() //VS 17 returns access violation if a User is returned through api, Courses contains a teacher...
         {
-            return db.Subjects;
-        }
+            List<Subject> _subjects = new List<Subject>();
 
-        // GET: api/Subjects/5
-        [ResponseType(typeof(Subject))]
-        public IHttpActionResult GetSubject(int id)
-        {
-            Subject subject = db.Subjects.Find(id);
-            if (subject == null)
+            foreach (Subject s in new SubjectsRepository().Subjects())
             {
-                return NotFound();
-            }
-
-            return Ok(subject);
-        }
-
-        // PUT: api/Subjects/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutSubject(int id, Subject subject)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != subject.ID)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(subject).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SubjectExists(id))
+                Subject tempS = new Subject();
+                tempS.ID = s.ID;
+                tempS.Name = s.Name;
+                if (s.Courses.Count() > 0)
                 {
-                    return NotFound();
+                    List<Course> tList = new List<Course>();
+                    foreach (Course c in s.Courses)
+                    {
+                        Course cTemp = new Course();
+                        cTemp.ID = c.ID;
+                        tList.Add(cTemp);
+                        cTemp = null;
+                    }
+                    tempS.Courses = tList;
+                    tList = null;
                 }
-                else
-                {
-                    throw;
-                }
+                _subjects.Add(tempS);
+                tempS = null;
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Subjects
-        [ResponseType(typeof(Subject))]
-        public IHttpActionResult PostSubject(Subject subject)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Subjects.Add(subject);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = subject.ID }, subject);
-        }
-
-        // DELETE: api/Subjects/5
-        [ResponseType(typeof(Subject))]
-        public IHttpActionResult DeleteSubject(int id)
-        {
-            Subject subject = db.Subjects.Find(id);
-            if (subject == null)
-            {
-                return NotFound();
-            }
-
-            db.Subjects.Remove(subject);
-            db.SaveChanges();
-
-            return Ok(subject);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool SubjectExists(int id)
-        {
-            return db.Subjects.Count(e => e.ID == id) > 0;
+            return _subjects;
         }
     }
 }

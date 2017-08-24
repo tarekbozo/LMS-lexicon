@@ -265,7 +265,6 @@
     <Compile Include="Controllers\API\NewsAPIController.cs" />
     <Compile Include="Controllers\API\NotificationsAPIController.cs" />
     <Compile Include="Controllers\API\SchedulesAPIController.cs" />
-    <Compile Include="Controllers\API\SubjectsAPIController.cs" />
     <Compile Include="Controllers\API\UsersAPIController.cs" />
     <Compile Include="Controllers\API\AccountController.cs" />
     <Compile Include="Controllers\API\AttendancesController.cs" />
@@ -293,9 +292,8 @@
     <Compile Include="Models\LMS\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
-    <Compile Include="Repository\AttendanceRepository.cs" />
     <Compile Include="Repository\ClassroomRepository.cs" />
-    <Compile Include="Repository\CourseRepository.cs" />
+    <Compile Include="Repository\CoursesRepository.cs" />
     <Compile Include="Repository\DocumentRepository.cs" />
     <Compile Include="Repository\GradeRepository.cs" />
     <Compile Include="Repository\IntershipRepository.cs" />
@@ -303,7 +301,7 @@
     <Compile Include="Repository\NotificationRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\ScheduleRepository.cs" />
-    <Compile Include="Repository\SubjectRepository.cs" />
+    <Compile Include="Repository\SubjectsRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\AttendancesRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
