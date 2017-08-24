@@ -64,6 +64,9 @@
             templateUrl: 'Views/Home/Home.html',
             controller: 'HomeController'
         }).
+        when('/Test', {
+            template: '<h3>testing</h3>',
+        }).
         when('/Account', {
             templateUrl: 'Views/Account/Account.html',
             controller: 'AccountCtrl'
