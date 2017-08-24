@@ -42,6 +42,7 @@
             }).then(function (response) {
                 // save the access_token as this is required for each API call. 
                 accessToken = response.data.access_token;
+                sessionStorage.setItem("token",accessToken);
                 // check the log screen to know currently back from the server when a user log in successfully.
                 console.log(response.data);
                 deferred.resolve(response.data);
@@ -59,6 +60,8 @@
                 headers: getHeaders(),
             }).then(function (response) {
                 accessToken = "";
+                sessionStorage.setItem("token", "");
+                sessionStorage.setItem("username","");
                 return deferred.resolve(response.data);
             }, function (err) {
                 alert("Couldn't log out");
@@ -82,6 +85,11 @@
         function getHeaders() {
             if (accessToken) {
                 return { "Authorization": "Bearer " + accessToken };
+            }
+            else
+            {
+                accessToken = sessionStorage.getItem("token");
+                return { "Authorization": "Bearer " + accessToken }
             }
         }
     }

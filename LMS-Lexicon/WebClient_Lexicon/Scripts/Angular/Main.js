@@ -71,6 +71,13 @@
             templateUrl: 'Views/Account/Account.html',
             controller: 'AccountCtrl'
         }).
+        when('/Login', {
+            templateUrl: 'Views/Account/Login.html',
+            controller: 'AccountCtrl'
+        }).when('/Register', {
+            templateUrl: 'Views/Account/Register.html',
+            controller: 'AccountCtrl'
+        }).
         otherwise({
             redirectTo: '/'
         });

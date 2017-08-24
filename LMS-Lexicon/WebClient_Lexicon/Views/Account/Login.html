@@ -1,0 +1,8 @@
+﻿    <div data-ng-if="!vm.isLoggedIn ">
+        <span>Login</span>
+        <div>
+            <input class="form-control" type="text" name="email" placeholder="Email" data-ng-model="vm.loginUserData.userName" />
+            <input class="form-control" type="password" name="password" placeholder="Password" data-ng-model="vm.loginUserData.password" />
+            <input class="btn-primary" type="button" id="logniUser" value="Login" data-ng-click="vm.loginUser()" />
+        </div>
+    </div>

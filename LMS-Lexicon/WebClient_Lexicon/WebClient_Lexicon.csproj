@@ -883,6 +883,8 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Angular\Authentication\userAccountService.js" />
     <Content Include="Views\Account\Account.html" />
+    <Content Include="Views\Account\Login.html" />
+    <Content Include="Views\Account\Register.html" />
     <Content Include="Views\Document\UploadDocument.html" />
     <Content Include="Views\Home\Home.html" />
     <Content Include="Web.config" />

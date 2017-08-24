@@ -1,0 +1,6 @@
+﻿    <div data-ng-if="!vm.isRegistered || !vm.isRegistered">
+        <input class="form-control" type="text" name="email" placeholder="Username" data-ng-model="vm.registerUserData.email" />
+        <input class="form-control" name="password" type="password" placeholder="Password" data-ng-model="vm.registerUserData.password" />
+        <input class="form-control" name="confirmPassword" type="password" placeholder="Confirm Password" data-ng-model="vm.registerUserData.confirmPassword" />
+        <input class="btn-primary" type="button" id="registerUser" value="Register" data-ng-click="vm.registerUser()" />
+    </div>

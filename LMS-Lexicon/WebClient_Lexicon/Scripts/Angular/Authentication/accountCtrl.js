@@ -9,7 +9,10 @@
         // Bindable properties and functions are placed on vm.
         vm.title = 'AccountCtrl';
         vm.isRegistered = false;
-        vm.isLoggedIn = false;
+
+        vm.isLoggedIn = sessionStorage.getItem("isLoggedIn");
+        vm.userName = sessionStorage.getItem("username");
+
         vm.registerUserData = {
             email: "",
             password: "",
@@ -38,6 +41,10 @@
                 vm.isLoggedIn = true;
                 vm.userName = data.userName;
                 vm.bearerToken = data.access_token;
+                
+                sessionStorage.setItem("username", vm.userName);
+                sessionStorage.setItem("isLoggedIn", vm.isLoggedIn);
+
             }, function (error, status) {
                 vm.isLoggedIn = false;
                 console.log(status);
