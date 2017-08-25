@@ -40,11 +40,11 @@
             userAccountService.loginUser(vm.loginUserData).then(function (data) {
                 vm.isLoggedIn = true;
                 vm.userName = data.userName;
-                vm.bearerToken = data.access_token;
-                
+
                 sessionStorage.setItem("username", vm.userName);
                 sessionStorage.setItem("isLoggedIn", vm.isLoggedIn);
 
+                window.location.href="/";
             }, function (error, status) {
                 vm.isLoggedIn = false;
                 console.log(status);
@@ -54,7 +54,6 @@
             userAccountService.logOutCurrentUser().then(function(response) {
                 vm.isLoggedIn = false;
                 vm.userName = "";
-                vm.bearerToken = null;
             }, function (err) {
                 alert("Something is not right");
             });
