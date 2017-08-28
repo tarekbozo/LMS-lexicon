@@ -24,10 +24,18 @@
             password: "",
         };
 
+        vm.roles = getRoleNames;
         vm.registerUser = registerUser;
         vm.loginUser = loginUser;
         vm.getValues = getValues;
         vm.logOutUser = logOut;
+
+        function getRoleNames() {
+            userAccountService.getRoleNames().then(function (r) {
+                vm.roles2 = r;
+                vm.selectedRole = r[0];
+            })
+        }
         function registerUser() {
             userAccountService.registerUser(vm.registerUserData).then(function (data) {
                 vm.isRegistered = true;

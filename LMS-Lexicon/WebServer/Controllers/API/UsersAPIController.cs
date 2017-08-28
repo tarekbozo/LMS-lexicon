@@ -10,125 +10,129 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebServer.Models;
 using WebServer.Models.LMS;
+using WebServer.Repository;
+using WebServer.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace WebServer.Controllers
 {
+    [Authorize(Roles="Admin,Student,Teacher")]
     public class UsersAPIController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        UsersRepository repository = new UsersRepository();
 
-        // GET: api/UsersAPI
-        public IQueryable<User> GetUsers()
+        // GET: Users
+        [OverrideAuthorization]
+        [Authorize(Roles="Admin")]
+        public List<PartialUserVM> GetUsers()
         {
-            return db.LMSUsers;
+            // The user can't be deleted if:
+            // - the edited user actually is the current user (can't delete oneself's account)
+            // - the user is responsible for some courses
+            // - the user takes part to any course
+            // - the user has uploaded some documents (whatever purpose they have)
+            // - the user has published some news
+            return repository.Users().Select(u => new PartialUserVM
+            {
+                Id = u.Id,
+                UserName = u.UserName,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                BirthDate = u.BirthDate,
+                Email = u.Email,
+                PhoneNumber = u.PhoneNumber,
+                Role = repository.GetUserRole(u.Id).Name,
+                IsDeletable = User.Identity.GetUserId() != u.Id &&
+                              u.Courses.Count == 0 &&
+                              u.Schedules.Count == 0 &&
+                              u.Documents.Count == 0 &&
+                              u.News.Count == 0
+            }).ToList();
         }
 
-        // GET: api/UsersAPI/5
-        [ResponseType(typeof(User))]
-        public IHttpActionResult GetUser(string id)
+        // GET: Students
+        [OverrideAuthorization]
+        [Authorize(Roles = "Admin")]
+        public List<PartialUserVM> GetStudents()
         {
-            User user = db.LMSUsers.Find(id);
-            if (user == null)
+            return repository.Students().Select(s => new PartialUserVM
             {
-                return NotFound();
-            }
-
-            return Ok(user);
+                Id = s.Id,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                BirthDate = s.BirthDate,
+                Email = s.Email,
+                PhoneNumber = s.PhoneNumber
+            }).ToList();
         }
-
-        // PUT: api/UsersAPI/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(string id, User user)
+        
+        public IHttpActionResult GetUserInfoFromCurrentUser(string userName)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != user.Id)
+            if (userName == "" || userName == null)
             {
                 return BadRequest();
             }
 
-            db.Entry(user).State = EntityState.Modified;
-
-            try
+            User _user = repository.UserByUsername(userName);
+            if (_user == null)
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/UsersAPI
-        [ResponseType(typeof(User))]
-        public IHttpActionResult PostUser(User user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Users.Add(user);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (UserExists(user.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
-        }
-
-        // DELETE: api/UsersAPI/5
-        [ResponseType(typeof(User))]
-        public IHttpActionResult DeleteUser(string id)
-        {
-            User user = db.LMSUsers.Find(id);
-            if (user == null)
-            {
+                _user = null;
                 return NotFound();
             }
-
-            db.Users.Remove(user);
-            db.SaveChanges();
-
-            return Ok(user);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            else if (_user.UserName != userName)
             {
-                db.Dispose();
+                _user = null;
+                return BadRequest();
             }
-            base.Dispose(disposing);
+            
+            string _userRole="Unknown";
+            if(User.IsInRole("Student")){ _userRole="Student"; }
+            else if(User.IsInRole("Teacher")){ _userRole="Teacher"; }
+            else if(User.IsInRole("Admin")){ _userRole="Admin"; }
+            else
+            {
+                return InternalServerError();
+            }
+            //Everything went perfect so let's send user info
+            return Ok(new PartialUserVM { 
+                FirstName=_user.FirstName, 
+                LastName=_user.LastName, 
+                Role=_userRole, 
+                Id=_user.Id, 
+                PhoneNumber=_user.PhoneNumber, 
+                Email=_user.Email, 
+                BirthDate=_user.BirthDate, 
+                UserName=_user.UserName
+            });
+
+
+
+            
         }
 
-        private bool UserExists(string id)
+        [OverrideAuthorization]
+        [Authorize(Roles = "Admin")]
+        public List<PartialUserVM> GetAvailableTeachers(int subjectID)
         {
-            return db.Users.Count(e => e.Id == id) > 0;
+            return repository.AvailableTeachers(subjectID).Select(t => new PartialUserVM
+            {
+                Id = t.Id,
+                FirstName = t.FirstName,
+                LastName = t.LastName
+            }).ToList();
+        }
+        [OverrideAuthorization]
+        [Authorize(Roles = "Admin")]
+        public IHttpActionResult GetAllRoleNames()
+        {
+            List<string> roles = new List<string>();
+            foreach (Role r in new RolesRepository().Roles())
+            {
+                string roleName = r.Name;
+                roles.Add(roleName);
+            }
+            if (roles.Count == 0) { return NotFound(); }
+            return Ok(roles);
         }
     }
 }
