@@ -11,16 +11,16 @@ var app = angular.module("LMSApp");
         $scope.DownloadExcelFile = function () {
             window.open('http://localhost:51942/api/Home/GetXLSFile/');
         };
-        $scope.GetUser = function () {
-            var _url = serverBaseUrl + "/api/UsersAPI/GetUserInfoFromCurrentUser?userName="+sessionStorage.getItem("username");
-            $http({
-                method: 'GET',
-                url: _url,
-                headers: getHeaders(),
-            }).then(function (response) {
-                $scope.user = response.data;
-            })
-        }
+        //$scope.GetUser = function () {
+        //    var _url = serverBaseUrl + "/api/UsersAPI/GetUserInfoFromCurrentUser?userName="+sessionStorage.getItem("username");
+        //    $http({
+        //        method: 'GET',
+        //        url: _url,
+        //        headers: getHeaders(),
+        //    }).then(function (response) {
+        //        $scope.user = response.data;
+        //    })
+        //}
 
         function getHeaders() {
                 return { "Authorization": "Bearer " + sessionStorage.getItem("token") }

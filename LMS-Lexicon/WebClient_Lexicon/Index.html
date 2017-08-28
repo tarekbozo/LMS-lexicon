@@ -10,7 +10,7 @@
 </head>
 <body data-ng-app="LMSApp">
     <div ng-controller="AccountCtrl as vm">
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-inverse navbar-fixed-top" ng-init="vm.userInfo()">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,12 +23,27 @@
                             <a class="navbar-brand" href="/Home">Home View</a>
                         </li>
                     </ul>
+                    <ul ng-if="vm.user.Role=='Admin'" class="nav navbar-nav">
+                        <li>
+                            <a class="navbar-brand" href="/Home">Admin</a>
+                        </li>
+                    </ul>
+                    <ul ng-if="vm.user.Role=='Teacher'" class="nav navbar-nav">
+                        <li>
+                            <a class="navbar-brand" href="/Home">Teacher</a>
+                        </li>
+                    </ul>
+                    <ul ng-if="vm.user.Role=='Student'" class="nav navbar-nav">
+                        <li>
+                            <a class="navbar-brand" href="/Home">Student</a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li ng-if="!vm.isLoggedIn"><a class="navbar-brand" href="/Login">Log In</a></li>
+                        <li ng-if="!vm.isLoggedIn ||vm.isLoggedIn=='false'"><a class="navbar-brand" href="/Login">Log In</a></li>
                         <li ng-if="vm.isLoggedIn"><a href="/Account">{{vm.userName}}</a></li>
-                        <li ng-if="vm.isLoggedIn" data-ng-click="vm.logOutUser()"><a href="/">Log Out</a></li>
+                        <li ng-if="vm.isLoggedIn!='false'" data-ng-click="vm.logOutUser()"><a href="/">Log Out</a></li>
                     </ul>
                 </div>
             </div>
