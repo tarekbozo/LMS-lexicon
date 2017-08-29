@@ -10,12 +10,14 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebServer.Models;
 using WebServer.Models.LMS;
+using WebServer.Repository;
 
 namespace WebServer.Controllers
 {
     public class InternshipsAPIController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        IntershipRepository iRepo = new IntershipRepository();
 
         // GET: api/InternshipsAPI
         public IQueryable<Internship> GetInternships()

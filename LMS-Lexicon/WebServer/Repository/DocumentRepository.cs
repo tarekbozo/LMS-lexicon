@@ -7,7 +7,7 @@ using WebServer.Models.LMS;
 
 namespace WebServer.Repository
 {
-    public class DocumentRepository
+    public class DocumentRepository : IDisposable
     {
 
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -116,8 +116,6 @@ namespace WebServer.Repository
 
         private bool disposedValue = false;
 
-
-
         protected virtual void Dispose(bool disposing)
         {
 
@@ -127,16 +125,13 @@ namespace WebServer.Repository
                 db.Dispose();
 
                 disposedValue = true;
-
             }
-
         }
 
         public void Dispose()
         {
 
             Dispose(true);
-
         }
 
         #endregion
