@@ -9,12 +9,11 @@
         // Bindable properties and functions are placed on vm.
         vm.title = 'AccountCtrl';
         vm.isRegistered = false;
-        if (sessionStorage.getItem("isLoggedIn" != undefined)) {
+        if (sessionStorage.getItem("isLoggedIn")!=undefined) {
             vm.isLoggedIn = sessionStorage.getItem("isLoggedIn");
         }
         else
         {
-            alert("test");
             vm.isLoggedIn = false;
         }
         vm.userName = sessionStorage.getItem("username");

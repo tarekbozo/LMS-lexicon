@@ -22,6 +22,7 @@ namespace WebServer.Models.LMS
         public string BirthDate { get; set; }
 
         public virtual ICollection<Grade> Grades { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<News> News { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<Document> Documents { get; set; }

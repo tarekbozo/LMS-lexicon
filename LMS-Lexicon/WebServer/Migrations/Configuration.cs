@@ -17,7 +17,6 @@ namespace WebServer.Migrations
         {
 
             AutomaticMigrationsEnabled = true;
-
             AutomaticMigrationDataLossAllowed = true;
 
         }
@@ -33,10 +32,7 @@ namespace WebServer.Migrations
             {
 
                 var store = new RoleStore<Role>(context);
-
                 var roleManager = new RoleManager<Role>(store);
-
-
 
                 roleManager.Create(new Role(RoleConstants.Admin));
 
@@ -48,10 +44,7 @@ namespace WebServer.Migrations
             {
 
                 var store = new RoleStore<Role>(context);
-
                 var roleManager = new RoleManager<Role>(store);
-
-
 
                 roleManager.Create(new Role(RoleConstants.Teacher));
 
@@ -729,3 +722,4 @@ namespace WebServer.Migrations
         }
     }
 }
+
