@@ -9,23 +9,68 @@
             loginUser: loginUser,
             getValues: getValues,
             logOutCurrentUser: logOutCurrentUser,
+            getRoleNames: getRoleNames,
+            userInfo: userInfo,
         };
         var serverBaseUrl = "http://localhost:51942";
 
         return service;
         var accessToken = "";
+
+
+        $scope.GetUser = function () {
+            var _url = serverBaseUrl + "/api/UsersAPI/GetUserInfoFromCurrentUser?userName=" + sessionStorage.getItem("username");
+            $http({
+                method: 'GET',
+                url: _url,
+                headers: getHeaders(),
+            }).then(function (response) {
+                $scope.user = response.data;
+            })
+        }
+
+        function userInfo() {
+            var _url = serverBaseUrl + "/api/UsersAPI/GetUserInfoFromCurrentUser?userName=" + sessionStorage.getItem("username");
+            var deferred = $q.defer();
+            $http({
+                method: 'GET',
+                url: _url,
+                headers: getHeaders(),
+            }).then(function (response) {
+                console.log(response.data);
+                deferred.resolve(response.data);
+            })
+            return deferred.promise;
+        }
+        function getRoleNames(){
+            var _url = serverBaseUrl + "/api/UsersAPI/GetAllRoleNames";
+            var deferred = $q.defer();
+            $http({
+                method: 'GET',
+                url: _url,
+                headers: getHeaders(),
+            }).then(function (response) {
+                console.log(response.data);
+                deferred.resolve(response.data);
+            }, function (err) {
+                alert("Internal Server Error: No Roles Detected From Server");
+            })
+            return deferred.promise;
+        }
+
         function registerUser(userData) {
             var accountUrl = serverBaseUrl + "/api/Account/Register";
             var deferred = $q.defer();
             $http({
                 method: 'POST',
                 url: accountUrl,
+                headers: getHeaders(),
                 data: userData,
             }).then(function (response) {
                 console.log(response.data);
                 deferred.resolve(response.data);
             }, function (err) {
-                alert("Account Couldn't be created, make sure the password contains a special character, a number and is at minimum 6 letters.");
+                alert(err.status);
             })
             return deferred.promise;
         }

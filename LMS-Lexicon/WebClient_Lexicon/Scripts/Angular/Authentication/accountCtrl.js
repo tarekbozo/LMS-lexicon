@@ -12,6 +12,7 @@
 
         vm.isLoggedIn = sessionStorage.getItem("isLoggedIn");
         vm.userName = sessionStorage.getItem("username");
+        vm.Role = sessionStorage.getItem("role");
 
         vm.registerUserData = {
             email: "",
@@ -24,10 +25,24 @@
             password: "",
         };
 
+        vm.roles = getRoleNames;
         vm.registerUser = registerUser;
         vm.loginUser = loginUser;
         vm.getValues = getValues;
         vm.logOutUser = logOut;
+        vm.userInfo = userInfo;
+
+        function userInfo() {
+            userAccountService.userInfo(vm.userName).then(function (r) {
+                vm.user = r;
+            })
+        }
+        function getRoleNames() {
+            userAccountService.getRoleNames().then(function (r) {
+                vm.roles2 = r;
+                vm.selectedRole = r[0];
+            })
+        }
         function registerUser() {
             userAccountService.registerUser(vm.registerUserData).then(function (data) {
                 vm.isRegistered = true;
@@ -54,6 +69,11 @@
             userAccountService.logOutCurrentUser().then(function(response) {
                 vm.isLoggedIn = false;
                 vm.userName = "";
+                sessionStorage.setItem("username","");
+                sessionStorage.setItem("token","");
+                sessionStorage.setItem("isLoggedIn",false);
+                sessionStorage.setItem("role",null);
+                window.location.href = "/";
             }, function (err) {
                 alert("Something is not right");
             });

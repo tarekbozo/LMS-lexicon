@@ -1,6 +1,28 @@
-﻿    <div data-ng-if="!vm.isRegistered || !vm.isRegistered">
-        <input class="form-control" type="text" name="email" placeholder="Username" data-ng-model="vm.registerUserData.email" />
-        <input class="form-control" name="password" type="password" placeholder="Password" data-ng-model="vm.registerUserData.password" />
-        <input class="form-control" name="confirmPassword" type="password" placeholder="Confirm Password" data-ng-model="vm.registerUserData.confirmPassword" />
-        <input class="btn-primary" type="button" id="registerUser" value="Register" data-ng-click="vm.registerUser()" />
+﻿    <div data-ng-if="vm.isLoggedIn && vm.user.Role=='Admin'">
+        <form ng-submit="vm.registerUser()">
+            <input class="form-control" type="email" name="email" placeholder="Email" data-ng-model="vm.registerUserData.email" required/>
+            <input class="form-control" type="text" name="username" placeholder="Username" data-ng-model="vm.registerUserData.username" required/>
+            <input class="form-control" type="text" name="firstname" placeholder="Firstname" data-ng-model="vm.registerUserData.firstname" required/>
+            <input class="form-control" type="text" name="lastname" placeholder="Lastname" data-ng-model="vm.registerUserData.lastname" required/>
+            <input class="form-control" type="date" name="birthdate" placeholder="Birth Date" data-ng-model="vm.registerUserData.birthdate" required/>
+        
+            <input class="form-control" name="password" type="password" placeholder="Password" data-ng-model="vm.registerUserData.password" required/>
+            <input class="form-control" name="confirmPassword" type="password" placeholder="Confirm Password" data-ng-model="vm.registerUserData.confirmPassword" required/>
+            <select ng-model="vm.selectedRole" ng-init="vm.roles()">
+                <option ng-repeat="role in vm.roles2" value="{{role}}">{{role}}</option>
+            </select>
+            <input class="btn-primary" type="submit" id="registerUser" value="Register"/>
+        </form>
     </div>
+<div ng-if="vm.user.Role!='Admin'">
+    <p class="text-warning">
+        Cake is a Lie, Nothing Here, He he.
+        <div class="media">
+            <div class="media-heading"><h2>Portal Music</h2></div>
+            <div class="media-body">
+                <div class="media-object">
+                    <iframe width="854" height="480" src="https://www.youtube.com/embed/B9RIHOnGGsg" frameborder="0" allowfullscreen></iframe>
+                </div>
+        </div>
+    </p>
+</div>
