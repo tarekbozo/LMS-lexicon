@@ -299,13 +299,14 @@
     <Compile Include="Repository\IntershipRepository.cs" />
     <Compile Include="Repository\NewsRepository.cs" />
     <Compile Include="Repository\NotificationRepository.cs" />
-    <Compile Include="Repository\RoleRepository.cs" />
+    <Compile Include="Repository\RolesRepository.cs" />
     <Compile Include="Repository\ScheduleRepository.cs" />
     <Compile Include="Repository\SubjectsRepository.cs" />
-    <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repository\UsersRepository.cs" />
     <Compile Include="Repository\AttendancesRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PartialUserVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
