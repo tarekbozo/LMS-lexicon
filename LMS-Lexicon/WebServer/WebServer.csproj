@@ -296,7 +296,7 @@
     <Compile Include="Repository\CoursesRepository.cs" />
     <Compile Include="Repository\DocumentRepository.cs" />
     <Compile Include="Repository\GradeRepository.cs" />
-    <Compile Include="Repository\IntershipRepository.cs" />
+    <Compile Include="Repository\InternshipRepository.cs" />
     <Compile Include="Repository\NewsRepository.cs" />
     <Compile Include="Repository\NotificationRepository.cs" />
     <Compile Include="Repository\RolesRepository.cs" />

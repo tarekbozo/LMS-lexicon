@@ -17,7 +17,7 @@ namespace WebServer.Controllers
     public class InternshipsAPIController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        IntershipRepository iRepo = new IntershipRepository();
+        InternshipRepository iRepo = new InternshipRepository();
 
         // GET: api/InternshipsAPI
         public IQueryable<Internship> GetInternships()

@@ -10,12 +10,14 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebServer.Models;
 using WebServer.Models.LMS;
+using WebServer.Repository;
 
 namespace WebServer.Controllers.API
 {
     public class CoursesController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        CoursesRepository corsRepo = new CoursesRepository();
 
         // GET: api/Courses
         public IQueryable<Course> GetCourses()
