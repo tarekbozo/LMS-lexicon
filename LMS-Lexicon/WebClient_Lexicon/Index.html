@@ -43,14 +43,15 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li ng-if="!vm.isLoggedIn ||vm.isLoggedIn=='false'"><a class="navbar-brand" href="/Login">Log In</a></li>
                         <li ng-if="vm.isLoggedIn"><a href="/Account">{{vm.userName}}</a></li>
-                        <li ng-if="vm.isLoggedIn!='false'" data-ng-click="vm.logOutUser()"><a href="/">Log Out</a></li>
+                        <li ng-if="vm.isLoggedIn!='false' && vm.isLoggedIn!=false && vm.isLoggedIn" data-ng-click="vm.logOutUser()"><a href="/">Log Out</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div>
             <div class="container body-content">
-
+                {{vm.title}}
+                {{vm.isLoggedIn}}
                 <div ng-view></div>
 
                 <footer class="footer">
