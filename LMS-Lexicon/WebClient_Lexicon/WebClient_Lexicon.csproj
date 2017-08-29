@@ -60,6 +60,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Angular\Attendance\Attendance.js" />
+    <Content Include="Scripts\Angular\Document\Document.js" />
     <Content Include="Scripts\Angular\Main.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Index.html" />
