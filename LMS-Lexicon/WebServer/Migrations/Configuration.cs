@@ -16,9 +16,9 @@ namespace WebServer.Migrations
         public Configuration()
         {
 
-            AutomaticMigrationsEnabled = true;
+            // AutomaticMigrationsEnabled = true;
 
-            AutomaticMigrationDataLossAllowed = true;
+            //AutomaticMigrationDataLossAllowed = true;
 
         }
 
