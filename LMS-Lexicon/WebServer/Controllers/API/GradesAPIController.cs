@@ -10,12 +10,14 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebServer.Models;
 using WebServer.Models.LMS;
+using WebServer.Repository;
 
 namespace WebServer.Controllers
 {
     public class GradesAPIController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        GradeRepository gRepo = new GradeRepository();
 
         // GET: api/GradesAPI
         public IQueryable<Grade> GetGrades()

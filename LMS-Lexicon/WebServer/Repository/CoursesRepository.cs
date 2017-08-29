@@ -8,7 +8,7 @@ using WebServer.Models.LMS;
 
 namespace WebServer.Repository
 {
-    public class CoursesRepository:IDisposable
+    public class CoursesRepository : IDisposable
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

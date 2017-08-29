@@ -16,6 +16,8 @@ namespace WebServer.Controllers.API
 {
     public class SubjectsController : ApiController
     {
+        SubjectsRepository subRepo = new SubjectsRepository();
+
         [HttpGet]
         public List<Subject> GetAllSubjects() //VS 17 returns access violation if a User is returned through api, Courses contains a teacher...
         {

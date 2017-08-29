@@ -17,5 +17,7 @@ namespace WebServer.Models.LMS
 
         public DateTime SendingDate { get; set; }
         public DateTime? ReadingDate { get; set; }
+
+        public Grade Grade { get; set; }
     }
 }

@@ -10,12 +10,14 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebServer.Models;
 using WebServer.Models.LMS;
+using WebServer.Repository;
 
 namespace WebServer.Controllers
 {
     public class NotificationsAPIController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        NotificationRepository notRepo = new NotificationRepository();
 
         // GET: api/NotificationAPIs
         public IQueryable<Notification> GetNotifications()

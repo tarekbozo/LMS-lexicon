@@ -10,12 +10,14 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebServer.Models;
 using WebServer.Models.LMS;
+using WebServer.Repository;
 
 namespace WebServer.Controllers
 {
     public class NewsAPIController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        NewsRepository nwsRepo = new NewsRepository();
 
         // GET: api/NewsAPI
         public IQueryable<News> GetNews()

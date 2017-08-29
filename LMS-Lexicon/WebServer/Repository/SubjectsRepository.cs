@@ -10,7 +10,6 @@ namespace WebServer.Repository
 {
     public class SubjectsRepository : IDisposable
     {
-
         private ApplicationDbContext db = new ApplicationDbContext();
 
         public IEnumerable<Subject> Subjects()

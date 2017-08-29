@@ -320,8 +320,7 @@ namespace WebServer.Controllers
         }
 
         // POST api/Account/Register
-        [OverrideAuthentication]
-        [Authorize(Roles="Admin")]
+        [AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
