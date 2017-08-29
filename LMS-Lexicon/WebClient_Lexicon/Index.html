@@ -23,19 +23,110 @@
                             <a class="navbar-brand" href="/Home">Home View</a>
                         </li>
                     </ul>
-                    <ul ng-if="vm.user.Role=='Admin'" class="nav navbar-nav">
+                    <ul ng-if="vm.user.Role!='Admin' || vm.user.Role!='Teacher'||vm.user.Role!='Student'" class="navbar navbar-nav">
                         <li>
-                            <a class="navbar-brand" href="/Home">Admin</a>
+                            <a href="/News" class="navbar-brand">News</a>
+                        </li>
+                        <li class="search" style="margin:10px 10px;"><input class="round" type="text" name="studentName" placeholder="Enter a student's name" /></li>
+                        <li style="margin:10px 10px"><input type="submit" class="btn btn-default" /></li>
+                    </ul>
+                    <ul ng-if="vm.user.Role=='Admin'" class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle"
+                               data-toggle="dropdown"
+                               role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">Schedule management<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/Subjects">Subjects</a>
+                                </li>
+                                <li>
+                                    <a href="/Courses">Courses</a>                                
+                                </li>
+                                <li>
+                                    <a href="/Classrooms">Classrooms</a>
+                                </li>
+                                <li>
+                                    <a href="/Schedules">Planning</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/Users">User management</a>
+                        </li>
+                        <li>
+                            <a href="/News/AdminIndex">News management</a>
                         </li>
                     </ul>
+
                     <ul ng-if="vm.user.Role=='Teacher'" class="nav navbar-nav">
                         <li>
-                            <a class="navbar-brand" href="/Home">Teacher</a>
+                            <a class="navbar-brand" href="/Teachers/UngradedAssignments">Ungraded Assignments</a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle"
+                               data-toggle="dropdown"
+                               role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">Upload Documents<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/Documents/UploadDocumentForSpecificCourse">Upload for a course</a>
+                                </li>
+                                <li>
+                                    <a href="/Documents/UploadDocumentForMyself">Upload for myself</a>
+                                </li>
+                                <li>
+                                    <a href="/Documents/MyDocuments">See my uploaded documents</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle"
+                               data-toggle="dropdown"
+                               role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">My Schedule<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/Teachers/Planning">Whole Schedule</a>
+                                </li>
+                                <li>
+                                    <a href="/Teachers/NextLecture">Next Lecture</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
+
                     <ul ng-if="vm.user.Role=='Student'" class="nav navbar-nav">
                         <li>
-                            <a class="navbar-brand" href="/Home">Student</a>
+                            <a class="navbar-brand"href="/Students/Planning">See my Schedule</a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle"
+                               data-toggle="dropdown"
+                               role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">Upload Documents<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/Documents/UploadDocumentForAssignments">Submit an assignment</a>
+                                </li>
+                                <li>
+                                    <a href="/Documents/UploadDocumentForClassroom">Upload for the whole classroom</a>
+                                </li>
+                                <li>
+                                    <a href="/Documents/MyDocuments">See my uploaded documents</a>
+                                </li>
+                            </ul>
+
+                        </li>
+
+                        <li>
+
+                            <a href="Students/MyGrades" ng-if="UnreadNotifications>0">My Grades({{UnreadNotifications}})</a>
+                            <a href="Students/MyGrades" ng-if="UnreadNotifications<=0 || UnreadNotifications==undefined">My Grades</a>
                         </li>
                     </ul>
                 </div>
@@ -50,13 +141,14 @@
         </div>
         <div>
             <div class="container body-content">
-                {{vm.title}}
-                {{vm.isLoggedIn}}
-                <div ng-view></div>
-
-                <footer class="footer">
-                    <p class="text-danger">&copy; 2017 - LMS Lexicon - Ahmad, Anton</p>
-                </footer>
+                <div class="row">
+                    <div ng-view></div>
+                </div>
+                <div class="row">
+                    <footer class="navbar-fixed-bottom">
+                        <p class="text-danger">&copy; 2017 - LMS Lexicon - Ahmad, Anton</p>
+                    </footer>
+                </div>
             </div>
         </div>
     </div>
