@@ -307,7 +307,7 @@
     <Compile Include="Repository\GradeRepository.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Repository\IntershipsRepository.cs" />
+    <Compile Include="Repository\InternshipRepository.cs" />
     <Compile Include="Repository\NewsRepository.cs">
       <SubType>Code</SubType>
     </Compile>
