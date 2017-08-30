@@ -21,6 +21,17 @@ namespace WebServer.Repository
             return Internships().FirstOrDefault(i => i.ID == id);
         }
 
+        public void Add(Internship internship)
+        {
+            internship.Date = DateTime.Now;
+            db.Internships.Add(internship);
+            SaveChanges();
+        }
+
+        private void SaveChanges()
+        {
+            db.SaveChanges();
+        }
 
         #region IDisposable Support
         private bool disposedValue = false;
