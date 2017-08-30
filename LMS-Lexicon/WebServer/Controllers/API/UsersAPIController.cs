@@ -32,6 +32,7 @@ namespace WebServer.Controllers
             // - the user takes part to any course
             // - the user has uploaded some documents (whatever purpose they have)
             // - the user has published some news
+
             return repository.Users().Select(u => new PartialUserVM
             {
                 Id = u.Id,

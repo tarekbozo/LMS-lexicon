@@ -18,14 +18,9 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <ul class="nav navbar-nav">
+                    <ul class="navbar navbar-nav">
                         <li>
-                            <a class="navbar-brand" href="/Home">Home View</a>
-                        </li>
-                    </ul>
-                    <ul ng-if="vm.user.Role!='Admin' || vm.user.Role!='Teacher'||vm.user.Role!='Student'" class="navbar navbar-nav">
-                        <li>
-                            <a href="/News" class="navbar-brand">News</a>
+                            <a href="/Home" class="navbar-brand">Home</a>
                         </li>
                         <li class="search" style="margin:10px 10px;"><input class="round" type="text" name="studentName" placeholder="Enter a student's name" /></li>
                         <li style="margin:10px 10px"><input type="submit" class="btn btn-default" /></li>
@@ -158,8 +153,9 @@
     <script src="Scripts/angular-route.min.js"></script>
     <script src="Scripts/modernizr-2.6.2.js"></script>
     <script src="Scripts/Angular/Main.js"></script>
-    <script src="Scripts/Angular/Home.js"></script>
+    <script src="Scripts/Angular/Home/Home.js"></script>
     <script src="Scripts/Angular/Authentication/accountCtrl.js"></script>
     <script src="Scripts/Angular/Authentication/userAccountService.js"></script>
+    <script src="Scripts/Angular/Users/Users.js"></script>
 </body>
 </html>
