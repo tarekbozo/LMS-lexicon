@@ -38,9 +38,11 @@
         vm.userInfo = userInfo;
 
         function userInfo() {
-            userAccountService.userInfo(vm.userName).then(function (r) {
-                vm.user = r;
-            })
+            if (vm.userName != "" ||vm.userName!=null || vm.userName!="null") {
+                userAccountService.userInfo(vm.userName).then(function (r) {
+                    vm.user = r;
+                })
+            }
         }
         function getRoleNames() {
             userAccountService.getRoleNames().then(function (r) {
