@@ -62,7 +62,6 @@
         $routeProvider.
         when('/', {
             templateUrl: 'Views/Home/Home.html',
-            controller: 'HomeController'
         }).
         when('/Test', {
             template: '<h3>testing</h3>',
@@ -71,13 +70,20 @@
             templateUrl: 'Views/Account/Account.html',
             controller: 'AccountCtrl'
         }).
+        when('/Account/Delete/:userid', {
+            templateUrl: 'Views/Account/Delete.html',
+            controller: 'AccountCtrl'
+        }).
+
         when('/Login', {
             templateUrl: 'Views/Account/Login.html',
             controller: 'AccountCtrl'
-        }).when('/Account/Register', {
+        }).
+        when('/Account/Register', {
             templateUrl: 'Views/Account/Register.html',
             controller: 'AccountCtrl'
-        }).when('/Users', {
+        }).
+        when('/Users', {
             templateUrl: 'Views/User/Index.html',
             controller: 'UsersCtrl'
         }).

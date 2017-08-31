@@ -124,13 +124,16 @@ namespace WebServer.Controllers
         }
         [OverrideAuthorization]
         [Authorize(Roles = "Admin")]
-        public IHttpActionResult GetAllRoleNames()
+        [HttpGet]
+        public IHttpActionResult GetRoles()
         {
-            List<string> roles = new List<string>();
+            List<Role> roles = new List<Role>();
             foreach (Role r in new RolesRepository().Roles())
             {
-                string roleName = r.Name;
-                roles.Add(roleName);
+                Role temp = new Role();
+                temp.Id = r.Id;
+                temp.Name = r.Name;
+                roles.Add(temp);
             }
             if (roles.Count == 0) { return NotFound(); }
             return Ok(roles);

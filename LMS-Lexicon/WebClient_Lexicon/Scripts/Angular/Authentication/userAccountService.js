@@ -11,6 +11,7 @@
             logOutCurrentUser: logOutCurrentUser,
             getRoleNames: getRoleNames,
             userInfo: userInfo,
+            deleteUser: deleteUser,
         };
         var serverBaseUrl = "http://localhost:51942";
 
@@ -31,7 +32,7 @@
             return deferred.promise;
         }
         function getRoleNames(){
-            var _url = serverBaseUrl + "/api/UsersAPI/GetAllRoleNames";
+            var _url = serverBaseUrl + "/api/UsersAPI/GetRoles";
             var deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -41,27 +42,46 @@
                 console.log(response.data);
                 deferred.resolve(response.data);
             }, function (err) {
-                alert("Internal Server Error: No Roles Detected From Server");
+
+                alert("something wet wrong.");
             })
             return deferred.promise;
         }
 
         function registerUser(userData) {
-            var accountUrl = serverBaseUrl + "/api/Account/Register";
-            var deferred = $q.defer();
-            $http({
-                method: 'POST',
-                url: accountUrl,
-                headers: getHeaders(),
-                data: userData,
-            }).then(function (response) {
-                console.log(response.data);
-                deferred.resolve(response.data);
-            }, function (err) {
-                alert(err.status);
-            })
+                userData.BirthDate = userData.BirthDate.toDateString();
+                console.log(userData);
+                var accountUrl = serverBaseUrl + "/api/Account/Register/";
+                var deferred = $q.defer();
+                var config = { headers: getHeaders() };
+                $http.post(accountUrl, userData, config).then(function (response) {
+                    console.log(response.data);
+                    deferred.resolve(response.data);
+                }, function (err) {
+                    alert(err.status);
+                })
             return deferred.promise;
         }
+
+        function deleteUser(userID) {
+            var url = serverBaseUrl + "/api/Account/DeleteUser/";
+            var deferred = $q.defer();
+            var config = { headers: getHeaders()};
+            alert(userID);
+            $http.delete(serverBaseUrl + '/api/Account/DeleteUser', '"' + userID + '"', config);
+            //$http({
+            //    method: 'POST',
+            //    url: url,
+            //    data: userID,
+            //    headers:getHeaders()
+            //}).then(function (response) {
+            //    deferred.resolve(response.data);
+            //}, function (err) {
+            //    alert("Couldn't Delete User");
+            //})
+            return deferred.promise;
+        }
+
         function loginUser(userData) {
             var tokenUrl = serverBaseUrl + "/Token";
             if (!userData.grant_type) {
