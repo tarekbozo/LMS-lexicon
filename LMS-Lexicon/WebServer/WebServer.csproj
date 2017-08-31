@@ -292,40 +292,18 @@
     <Compile Include="Models\LMS\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
-    <Compile Include="Repository\AttendancesRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repository\ClassroomRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repository\CoursesRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repository\DocumentRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repository\GradeRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Repository\ClassroomRepository.cs" />
+    <Compile Include="Repository\CoursesRepository.cs" />
+    <Compile Include="Repository\DocumentRepository.cs" />
+    <Compile Include="Repository\GradeRepository.cs" />
     <Compile Include="Repository\InternshipRepository.cs" />
-    <Compile Include="Repository\NewsRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repository\NotificationRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repository\RolesRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repository\ScheduleRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repository\SubjectsRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repository\UsersRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Repository\NewsRepository.cs" />
+    <Compile Include="Repository\NotificationRepository.cs" />
+    <Compile Include="Repository\RolesRepository.cs" />
+    <Compile Include="Repository\ScheduleRepository.cs" />
+    <Compile Include="Repository\SubjectsRepository.cs" />
+    <Compile Include="Repository\UsersRepository.cs" />
+    <Compile Include="Repository\AttendancesRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\PartialUserVM.cs" />

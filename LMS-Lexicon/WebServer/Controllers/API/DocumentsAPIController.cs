@@ -19,10 +19,13 @@ namespace WebServer.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private DocumentRepository docRepo = new DocumentRepository();
 
+
         // GET: api/Documents
-        public IQueryable<Document> GetDocuments()
+        public Document document { get; set; }
+
+        public IEnumerable<Document> Documents()
         {
-            return db.Documents;
+            return docRepo.Documents();
         }
 
         // GET: api/Documents/5

@@ -12,11 +12,7 @@ namespace WebServer.Repository
 
         private ApplicationDbContext db = new ApplicationDbContext();
 
-
-
         public Document document { get; set; }
-
-
 
         public IEnumerable<Document> Documents()
         {
@@ -24,8 +20,6 @@ namespace WebServer.Repository
             return db.Documents;
 
         }
-
-
 
         /// <summary>
 

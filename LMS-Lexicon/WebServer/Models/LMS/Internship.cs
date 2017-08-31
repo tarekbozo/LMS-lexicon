@@ -17,5 +17,7 @@ namespace WebServer.Models.LMS
         [Display(Name = "Ending date")]
         public string EndingDate { get; set; }
         public virtual ICollection<User> Students { get; set; }
-    }
+
+        public DateTime Date { get; set; }
+    }
 }
