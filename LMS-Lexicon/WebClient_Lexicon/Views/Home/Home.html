@@ -3,7 +3,7 @@
     <div class="col-md-8">
         <div ng-if="vm.isLoggedIn=='true'||vm.isLoggedIn==true">
             <b class="text-danger">User Info:</b>
-            <div>
+            <div ng-init="vm.initialUser()">
                 {{vm.user}}
             </div>
         </div>
