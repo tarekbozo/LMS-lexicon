@@ -1,0 +1,12 @@
+﻿<h1>Delete Account</h1>
+<div ng-init="vm.getRoute()">
+    <div class="row">
+        <div ng-init="vm.deleteUserInfo()" class="col-md-6">
+            {{vm.user}}
+        </div>
+    </div>
+    {{vm.DeleteId}}
+    <form>
+        <input type="submit" data-ng-click="vm.deleteUser('yes')"/>
+    </form>
+</div>

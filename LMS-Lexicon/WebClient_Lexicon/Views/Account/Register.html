@@ -1,20 +1,19 @@
 ﻿  
  <div data-ng-if="vm.isLoggedIn && vm.user.Role=='Admin'">
         <form ng-submit="vm.registerUser()">
-            <input class="form-control" type="email" name="email" placeholder="Email" data-ng-model="vm.registerUserData.email" required/>
-            <input class="form-control" type="text" name="username" placeholder="Username" data-ng-model="vm.registerUserData.username" required/>
-            <input class="form-control" type="text" name="firstname" placeholder="Firstname" data-ng-model="vm.registerUserData.firstname" required/>
-            <input class="form-control" type="text" name="lastname" placeholder="Lastname" data-ng-model="vm.registerUserData.lastname" required/>
-            <input class="form-control" type="date" name="birthdate" placeholder="Birth Date" data-ng-model="vm.registerUserData.birthdate" required/>
-        
-            <input class="form-control" name="password" type="password" placeholder="Password" data-ng-model="vm.registerUserData.password" required/>
-            <input class="form-control" name="confirmPassword" type="password" placeholder="Confirm Password" data-ng-model="vm.registerUserData.confirmPassword" required/>
-            <select ng-model="vm.selectedRole" ng-init="vm.roles()">
-                <option ng-repeat="role in vm.roles2" value="{{role}}">{{role}}</option>
+            <input class="form-control" type="email" name="Email" placeholder="Email" data-ng-model="vm.registerUserData.Email" required/>
+            <input class="form-control" type="text" name="UserName" placeholder="Username" data-ng-model="vm.registerUserData.UserName" required/>
+            <input class="form-control" type="text" name="FirstName" placeholder="Firstname" data-ng-model="vm.registerUserData.FirstName" required/>
+            <input class="form-control" type="text" name="LastName" placeholder="Lastname" data-ng-model="vm.registerUserData.LastName" required/>
+            <input class="form-control" type="date" id="BirthDate"name="BirthDate" placeholder="Birth Date" data-ng-model="vm.registerUserData.BirthDate" required />
+       
+            <select data-ng-model="vm.registerUserData.RoleName" ng-init="vm.roles()">
+                <option ng-repeat="role in vm.roles2" value="{{role.Name}}">{{role.Name}}</option>
             </select>
             <input class="btn-primary" type="submit" id="registerUser" value="Register"/>
         </form>
-    </div>
+        {{vm.ErrorMessage}}
+</div>
 <div ng-if="vm.user.Role!='Admin'">
     <p class="text-warning">
         Cake is a Lie, Nothing Here, He he.
@@ -24,6 +23,7 @@
                 <div class="media-object">
                     <iframe width="854" height="480" src="https://www.youtube.com/embed/B9RIHOnGGsg" frameborder="0" allowfullscreen></iframe>
                 </div>
+            </div>
         </div>
     </p>
 </div>

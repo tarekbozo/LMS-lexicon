@@ -100,11 +100,11 @@
                 <td>{{user.Role}}</td>
                 <td>
                     <a data-ng-href="/Account/Edit/{{user.Id}}">Edit</a> |
-                    <a data-ng-href="/Users/Details/{{user.Id}}">Details</a>
+                    <a data-ng-href="/Account/Details/{{user.Id}}">Details</a>
                     <span ng-show="user.IsDeletable">
-                        | <a data-ng-href="/Users/Delete/{{user.Id}}">Delete</a>
+                        | <a data-ng-href="/Account/Delete/{{user.Id}}">Delete</a>
                     </span>
-                    | <a data-ng-href="/Users/ResetPassword/{{user.Id}}">Reset Password</a>
+                    | <a data-ng-href="/Account/ResetPassword/{{user.Id}}">Reset Password</a>
                 </td>
             </tr>
         </tbody>

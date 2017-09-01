@@ -1,7 +1,7 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="Content/bootstrap.css" type="text/css"/>
     <!--<link rel="stylesheet" href="Content/bootstrap-Slate.css" type="text/css"/>-->
     <link rel="stylesheet" href="Content/Site.css" type="text/css"/>
@@ -9,8 +9,9 @@
     <base href="/">
 </head>
 <body data-ng-app="LMSApp">
+    {{vm.userId}}
     <div ng-controller="AccountCtrl as vm">
-        <div class="navbar navbar-inverse navbar-fixed-top" ng-init="vm.userInfo()">
+        <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -37,7 +38,7 @@
                                     <a href="/Subjects">Subjects</a>
                                 </li>
                                 <li>
-                                    <a href="/Courses">Courses</a>                                
+                                    <a href="/Courses">Courses</a>
                                 </li>
                                 <li>
                                     <a href="/Classrooms">Classrooms</a>
@@ -96,7 +97,7 @@
 
                     <ul ng-if="vm.user.Role=='Student'" class="nav navbar-nav">
                         <li>
-                            <a class="navbar-brand"href="/Students/Planning">See my Schedule</a>
+                            <a class="navbar-brand" href="/Students/Planning">See my Schedule</a>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle"

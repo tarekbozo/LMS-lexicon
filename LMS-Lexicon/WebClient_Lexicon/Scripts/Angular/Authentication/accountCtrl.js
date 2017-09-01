@@ -2,8 +2,8 @@
     'use strict';
     var controllerId = 'AccountCtrl';
     angular.module('LMSApp').controller(controllerId,
-        ['userAccountService', accountCtrl]);
-    function accountCtrl(userAccountService,$window) {
+        ['userAccountService', '$routeParams', accountCtrl]);
+    function accountCtrl(userAccountService, $window, $routeParams) {
         // Using 'Controller As' syntax, so we assign this to the vm variable (for viewmodel).
         var vm = this;
         // Bindable properties and functions are placed on vm.
@@ -20,9 +20,12 @@
         vm.Role = sessionStorage.getItem("role");
 
         vm.registerUserData = {
-            email: "",
-            password: "",
-            confirmPassword: "",
+            UserName: "",
+            FirstName: "",
+            LastName: "",
+            BirthDate: "",
+            RoleName: "",
+            Email: ""
         };
 
         vm.loginUserData = {
@@ -36,10 +39,25 @@
         vm.getValues = getValues;
         vm.logOutUser = logOut;
         vm.userInfo = userInfo;
+        vm.deleteUser = deleteUser;
 
-        function userInfo() {
-            if (vm.userName != "" ||vm.userName!=null || vm.userName!="null") {
-                userAccountService.userInfo(vm.userName).then(function (r) {
+        vm.initialUser = function () {
+            if (vm.isLoggedIn) {
+                userInfo(vm.userName);
+            }
+        }
+        vm.deleteUserInfo = function () {
+            userInfo(vm.DeleteId);
+        }
+        vm.getRoute = function () {
+            //vm.id = $routeParams.userid - routeParams returns undefined don't know why;
+            //new solution for getting parameters
+            var n = window.location.href.lastIndexOf('/');
+            vm.DeleteId=window.location.href.substring(n + 1);
+        }
+        function userInfo(name) {
+            if (name != "" && name && name!="null") {
+                userAccountService.userInfo(name).then(function (r) {
                     vm.user = r;
                 })
             }
@@ -47,22 +65,39 @@
         function getRoleNames() {
             userAccountService.getRoleNames().then(function (r) {
                 vm.roles2 = r;
-                vm.selectedRole = r[0];
+                vm.registerUserData.RoleName = r[1].Name;
             })
         }
+        function deleteUser(answer) {
+            if (answer == "yes") {
+                userAccountService.deleteUser(vm.DeleteId).then(function (data) {
+                    vm.DeleteId = "";
+                    window.location.href = "/Users";
+                });
+            }
+        }
         function registerUser() {
-            userAccountService.registerUser(vm.registerUserData).then(function (data) {
-                vm.isRegistered = true;
-            }, function (error, status) {
-                vm.isRegistered = false;
-                console.log(status);
-            });
+            if (isNaN(Date.parse(vm.registerUserData.BirthDate))==false) {
+                userAccountService.registerUser(vm.registerUserData).then(function (data) {
+                    vm.isRegistered = true;
+                    window.location.href = "/Users";
+                }, function (error, status) {
+                    vm.isRegistered = false;
+                    console.log(status);
+                    if (status < 500 && status > 300) {
+                        vm.ErrorMessage = "Error: " + status + " - " + "Bad-Request please check the input fields";
+                    }
+                });
+            }
+            else
+            {
+                vm.ErrorMessage = "Date is invalid, make sure it have the format yyyy-mm-dd";
+            }
         }
         function loginUser() {
             userAccountService.loginUser(vm.loginUserData).then(function (data) {
                 vm.isLoggedIn = true;
                 vm.userName = data.userName;
-
                 sessionStorage.setItem("username", vm.userName);
                 sessionStorage.setItem("isLoggedIn", vm.isLoggedIn);
 
