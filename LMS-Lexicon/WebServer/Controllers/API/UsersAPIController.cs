@@ -74,25 +74,40 @@ namespace WebServer.Controllers
                 return BadRequest();
             }
 
-            User _user = repository.UserByUsername(userName);
+            User _user = repository.UserById(userName);
             if (_user == null)
             {
                 _user = null;
                 return NotFound();
             }
-            else if (_user.UserName != userName)
+            else if (_user.UserName != userName && _user.Id!=_user.Id)
             {
                 _user = null;
                 return BadRequest();
             }
-            
-            string _userRole="Unknown";
-            if(User.IsInRole("Student")){ _userRole="Student"; }
-            else if(User.IsInRole("Teacher")){ _userRole="Teacher"; }
-            else if(User.IsInRole("Admin")){ _userRole="Admin"; }
+            string _userRole = "Unknown";
+            if (userName != _user.Id)
+            {
+                if (User.IsInRole("Student")) { _userRole = "Student"; }
+                else if (User.IsInRole("Teacher")) { _userRole = "Teacher"; }
+                else if (User.IsInRole("Admin")) { _userRole = "Admin"; }
+                else
+                {
+                    return InternalServerError();
+                }
+            }
             else
             {
-                return InternalServerError();
+                Role r=repository.GetUserRole(_user.Id);
+                if (r.Name=="Student") { _userRole = "Student"; }
+                else if (r.Name=="Teacher") { _userRole = "Teacher"; }
+                else if (r.Name=="Admin") { _userRole = "Admin"; }
+                else
+                {
+                    r = null;
+                    return InternalServerError();
+                }
+                r = null;
             }
             //Everything went perfect so let's send user info
             return Ok(new PartialUserVM { 

@@ -322,10 +322,12 @@ namespace WebServer.Controllers
         }
         [HttpDelete]
         [OverrideAuthorization]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles="Admin")]
         [Route("DeleteUser")]
-        public IHttpActionResult DeleteUser([FromBody]string userID) {
-            if (userID == "" || userID == null) {
+        public IHttpActionResult DeleteUser([FromBody]string userID)
+        {
+            if (userID == "" || userID == null)
+            {
                 return BadRequest();
             }
             User u = new UsersRepository().UserById(userID) as User;

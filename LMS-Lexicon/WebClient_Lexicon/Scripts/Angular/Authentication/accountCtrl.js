@@ -41,15 +41,23 @@
         vm.userInfo = userInfo;
         vm.deleteUser = deleteUser;
 
+        vm.initialUser = function () {
+            if (vm.isLoggedIn) {
+                userInfo(vm.userName);
+            }
+        }
+        vm.deleteUserInfo = function () {
+            userInfo(vm.DeleteId);
+        }
         vm.getRoute = function () {
             //vm.id = $routeParams.userid - routeParams returns undefined don't know why;
             //new solution for getting parameters
             var n = window.location.href.lastIndexOf('/');
             vm.DeleteId=window.location.href.substring(n + 1);
         }
-        function userInfo() {
-            if (vm.userName != "" && vm.userName!=null && vm.userName!="null") {
-                userAccountService.userInfo(vm.userName).then(function (r) {
+        function userInfo(name) {
+            if (name != "" && name && name!="null") {
+                userAccountService.userInfo(name).then(function (r) {
                     vm.user = r;
                 })
             }
@@ -90,7 +98,6 @@
             userAccountService.loginUser(vm.loginUserData).then(function (data) {
                 vm.isLoggedIn = true;
                 vm.userName = data.userName;
-
                 sessionStorage.setItem("username", vm.userName);
                 sessionStorage.setItem("isLoggedIn", vm.isLoggedIn);
 

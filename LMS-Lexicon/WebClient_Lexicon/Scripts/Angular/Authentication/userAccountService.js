@@ -18,8 +18,8 @@
         return service;
         var accessToken = "";
 
-        function userInfo() {
-            var _url = serverBaseUrl + "/api/UsersAPI/GetUserInfoFromCurrentUser?userName=" + sessionStorage.getItem("username");
+        function userInfo(name) {
+            var _url = serverBaseUrl + "/api/UsersAPI/GetUserInfoFromCurrentUser?userName=" + name;
             var deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -49,12 +49,13 @@
         }
 
         function registerUser(userData) {
-                userData.BirthDate = userData.BirthDate.toDateString();
-                console.log(userData);
+
+            //userData.BirthDate = userData.BirthDate.toDateString();
+            //    console.log(userData);
                 var accountUrl = serverBaseUrl + "/api/Account/Register/";
                 var deferred = $q.defer();
                 var config = { headers: getHeaders() };
-                $http.post(accountUrl, userData, config).then(function (response) {
+                $http.post(accountUrl, JSON.stringify(userData), config).then(function (response) {
                     console.log(response.data);
                     deferred.resolve(response.data);
                 }, function (err) {
@@ -67,18 +68,16 @@
             var url = serverBaseUrl + "/api/Account/DeleteUser/";
             var deferred = $q.defer();
             var config = { headers: getHeaders()};
-            alert(userID);
-            $http.delete(serverBaseUrl + '/api/Account/DeleteUser', '"' + userID + '"', config);
-            //$http({
-            //    method: 'POST',
-            //    url: url,
-            //    data: userID,
-            //    headers:getHeaders()
-            //}).then(function (response) {
-            //    deferred.resolve(response.data);
-            //}, function (err) {
-            //    alert("Couldn't Delete User");
-            //})
+            $http({
+                method: 'DELETE',
+                url: url,
+                data: JSON.stringify(userID),
+                headers:getHeaders()
+            }).then(function (response) {
+                deferred.resolve(response.data);
+            }, function (err) {
+                alert("Couldn't Delete User");
+            })
             return deferred.promise;
         }
 
@@ -137,12 +136,12 @@
         // we have to include the Bearer token with each call to the Web API controllers. 
         function getHeaders() {
             if (accessToken) {
-                return { "Authorization": "Bearer " + accessToken };
+                return { "Authorization": "Bearer " + accessToken, 'Content-Type': 'application/json' };
             }
             else
             {
                 accessToken = sessionStorage.getItem("token");
-                return { "Authorization": "Bearer " + accessToken }
+                return { "Authorization": "Bearer " + accessToken, 'Content-Type': 'application/json' }
             }
         }
     }
