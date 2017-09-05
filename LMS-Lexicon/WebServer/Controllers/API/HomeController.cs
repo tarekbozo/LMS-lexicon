@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Microsoft.AspNet.Identity;
+using System.IO;
 
 namespace WebServer.Controllers
 {
@@ -16,19 +17,15 @@ namespace WebServer.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
-            String user = User.Identity.Name;
-
-            //String id1 = User.Identity.GetUserId();
-            String id2 = RequestContext.Principal.Identity.GetUserId();
-
-            return new string[] { id2, user,User.IsInRole("Teacher").ToString() };
+            return new string[] { "value1","value2" };
         }
 
 
         // GET api/values/5
-        public string Get(int id)
+        [HttpPost]
+        public string SendFile(byte[] file)
         {
-            return "value";
+            return "a file";
         }
 
         // POST api/values

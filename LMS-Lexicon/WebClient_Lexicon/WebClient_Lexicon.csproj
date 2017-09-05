@@ -96,6 +96,7 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\Angular\Subjects\Subjects.js" />
     <Content Include="Scripts\Angular\Users\Users.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -874,7 +875,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Home\Home.js" />
+    <Content Include="Scripts\Angular\Home\Home.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -894,6 +895,8 @@
     <Content Include="Views\Account\Register.html" />
     <Content Include="Views\Document\UploadDocument.html" />
     <Content Include="Views\Home\Home.html" />
+    <Content Include="Views\Subjects\Create.html" />
+    <Content Include="Views\Subjects\Index.html" />
     <Content Include="Views\User\Index.html" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -910,7 +913,6 @@
     <Folder Include="Views\Notification\" />
     <Folder Include="Views\Role\" />
     <Folder Include="Views\Schedule\" />
-    <Folder Include="Views\Subject\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

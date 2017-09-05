@@ -5,6 +5,14 @@
             <b class="text-danger">User Info:</b>
             <div ng-init="vm.initialUser()">
                 {{vm.user}}
+                <div ng-init="getData()">
+                    {{data}}
+                    <input type="file" id="MyFile"/>
+                    <input type="submit" ng-click="fileUpdate()"/>
+                    <br />
+                    <h2>My File</h2>
+                    {{MyFile}}
+                </div>
             </div>
         </div>
     </div>

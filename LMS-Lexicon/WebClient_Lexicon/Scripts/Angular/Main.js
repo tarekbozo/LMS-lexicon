@@ -62,6 +62,7 @@
         $routeProvider.
         when('/', {
             templateUrl: 'Views/Home/Home.html',
+            controller: 'HomeController'
         }).
         when('/Test', {
             template: '<h3>testing</h3>',
@@ -86,6 +87,26 @@
         when('/Users', {
             templateUrl: 'Views/User/Index.html',
             controller: 'UsersCtrl'
+        }).
+        when('/Subjects', {
+            templateUrl: 'Views/Subjects/Index.html',
+            controller: 'Subjects_IndexController'
+        }).
+        when('/Subjects/Create', {
+            templateUrl: 'Views/Subjects/Create.html',
+            controller: 'Subjects_CreateController'
+        }).
+        when('/Subjects/Edit/:userid', {
+            templateUrl: 'Views/Subjects/Edit.html',
+            controller: 'Subjects_EditController'
+        }).
+        when('/Subjects/Details/:userid', {
+            templateUrl: 'Views/Subjects/Details.html',
+            controller: 'Subjects_DetailsController'
+        }).
+        when('/Subjects/Delete/:userid', {
+            templateUrl: 'Views/Subjects/Delete.html',
+            controller: 'Subjects_DeleteController'
         }).
         otherwise({
             redirectTo: '/'

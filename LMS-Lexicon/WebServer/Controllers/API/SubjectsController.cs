@@ -19,18 +19,19 @@ namespace WebServer.Controllers.API
         SubjectsRepository subRepo = new SubjectsRepository();
 
         [HttpGet]
-        public List<Subject> GetAllSubjects() //VS 17 returns access violation if a User is returned through api, Courses contains a teacher...
+        public List<Subject> Get()
         {
             List<Subject> _subjects = new List<Subject>();
-
             foreach (Subject s in new SubjectsRepository().Subjects())
             {
                 Subject tempS = new Subject();
                 tempS.ID = s.ID;
                 tempS.Name = s.Name;
+
                 if (s.Courses.Count() > 0)
                 {
                     List<Course> tList = new List<Course>();
+
                     foreach (Course c in s.Courses)
                     {
                         Course cTemp = new Course();
@@ -45,6 +46,22 @@ namespace WebServer.Controllers.API
                 tempS = null;
             }
             return _subjects;
+        }
+        [HttpPost]
+        public IHttpActionResult Create(Subject subject)
+        {
+            if(subject==null || subject.Name=="" || subject.Name==null || subRepo.Subject(subject.Name).Name==subject.Name){
+                return BadRequest();
+            }
+            try
+            {
+                subRepo.Add(subject);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            return Create(subject);
         }
     }
 }

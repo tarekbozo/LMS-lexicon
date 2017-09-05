@@ -55,7 +55,6 @@
                             <a href="/News/AdminIndex">News management</a>
                         </li>
                     </ul>
-
                     <ul ng-if="vm.user.Role=='Teacher'" class="nav navbar-nav">
                         <li>
                             <a class="navbar-brand" href="/Teachers/UngradedAssignments">Ungraded Assignments</a>
@@ -94,7 +93,6 @@
                             </ul>
                         </li>
                     </ul>
-
                     <ul ng-if="vm.user.Role=='Student'" class="nav navbar-nav">
                         <li>
                             <a class="navbar-brand" href="/Students/Planning">See my Schedule</a>
@@ -116,11 +114,8 @@
                                     <a href="/Documents/MyDocuments">See my uploaded documents</a>
                                 </li>
                             </ul>
-
                         </li>
-
                         <li>
-
                             <a href="Students/MyGrades" ng-if="UnreadNotifications>0">My Grades({{UnreadNotifications}})</a>
                             <a href="Students/MyGrades" ng-if="UnreadNotifications<=0 || UnreadNotifications==undefined">My Grades</a>
                         </li>
@@ -158,5 +153,6 @@
     <script src="Scripts/Angular/Authentication/accountCtrl.js"></script>
     <script src="Scripts/Angular/Authentication/userAccountService.js"></script>
     <script src="Scripts/Angular/Users/Users.js"></script>
+    <script src="Scripts/Angular/Subjects/Subjects.js"></script>
 </body>
 </html>
