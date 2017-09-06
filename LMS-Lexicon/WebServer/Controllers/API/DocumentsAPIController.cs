@@ -19,6 +19,7 @@ using WebServer.ViewModels;
 
 namespace WebServer.Controllers
 {
+    //some random comment ebcause of a code lock
     public class DocumentsAPIController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -26,7 +27,6 @@ namespace WebServer.Controllers
 
         //Upload Document
         [HttpPost]
-        [Route("{controller}/upload/{fileName}/{filePath}")]
         public async Task<HttpResponseMessage> UploadDocument(string documentName, string documentPath)
         {
 
@@ -62,25 +62,25 @@ namespace WebServer.Controllers
             }
         }
         //Download Document
-        [HttpGet]
-        [Route("FileServer")]
-        public async Task<HttpResponseMessage> GetDocument(int DocumentID)
-        {
-            using (var docRepo = new DocumentRepository())
-            {
-                var Document = await docRepo.GetSpecificDocument(DocumentID);
-                if (Document == null)
-                {
-                    throw new HttpResponseException(HttpStatusCode.BadRequest);
-                }
+        //[HttpGet]
+        //[Route("FileServer")]
+        //public async Task<HttpResponseMessage> GetDocument(int DocumentID)
+        //{
+        //    using (var docRepo = new DocumentRepository())
+        //    {
+        //        var Document = await docRepo.GetSpecificDocument(DocumentID);
+        //        if (Document == null)
+        //        {
+        //            throw new HttpResponseException(HttpStatusCode.BadRequest);
+        //        }
 
-                var stream = File.Open(Document.PathLocator, FileMode.Open);
-                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-                response.Content = new StreamContent(stream);
-                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(Document.FileType);
-                return response;
-            }
-        }
+        //        var stream = File.Open(Document.PathLocator, FileMode.Open);
+        //        HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+        //        response.Content = new StreamContent(stream);
+        //        response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(Document.FileType);
+        //        return response;
+        //    }
+        //}
 
     }
 }

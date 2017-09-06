@@ -257,20 +257,20 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\API\AccountController.cs" />
+    <Compile Include="Controllers\API\AttendancesController.cs" />
     <Compile Include="Controllers\API\ClassroomsAPIController.cs" />
     <Compile Include="Controllers\API\CoursesAPIController.cs" />
+    <Compile Include="Controllers\API\CoursesController.cs" />
     <Compile Include="Controllers\API\DocumentsAPIController.cs" />
     <Compile Include="Controllers\API\GradesAPIController.cs" />
+    <Compile Include="Controllers\API\HomeController.cs" />
     <Compile Include="Controllers\API\InternshipsAPIController.cs" />
     <Compile Include="Controllers\API\NewsAPIController.cs" />
     <Compile Include="Controllers\API\NotificationsAPIController.cs" />
     <Compile Include="Controllers\API\SchedulesAPIController.cs" />
-    <Compile Include="Controllers\API\UsersAPIController.cs" />
-    <Compile Include="Controllers\API\AccountController.cs" />
-    <Compile Include="Controllers\API\AttendancesController.cs" />
-    <Compile Include="Controllers\API\CoursesController.cs" />
-    <Compile Include="Controllers\API\HomeController.cs" />
     <Compile Include="Controllers\API\SubjectsController.cs" />
+    <Compile Include="Controllers\API\UsersAPIController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
