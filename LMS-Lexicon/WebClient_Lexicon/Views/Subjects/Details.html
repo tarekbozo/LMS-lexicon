@@ -1,0 +1,37 @@
+﻿<div ng-init="Details()">
+<h2>{{subject.Name}}</h2>
+<div>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <h3>Name</h3>
+                </th>
+                <th>
+                    <h3>Responsible Teachers</h3>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p>{{subject.Name}}</p>
+                </td>
+                <td>
+                    <table class="table-condensed">
+                        <tr ng-repeat="course in subject.Courses">
+                            <td>{{course.Teacher.FirstName}} {{course.Teacher.LastName}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>
+    <a ng-if="subject.Courses.length==0" href="" ng-click="Edit">Edit</a><text ng-if="subject.Courses.length==0"> | </text>
+    <a href="/Subjects">Back to Subjects</a>
+</p>
+</div>
