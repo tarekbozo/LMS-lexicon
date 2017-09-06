@@ -11,6 +11,7 @@ namespace WebServer.Repository
     {
 
         private ApplicationDbContext db = new ApplicationDbContext();
+        private DocumentRepository docRepo = new DocumentRepository();
 
         public Document document { get; set; }
 
@@ -38,8 +39,6 @@ namespace WebServer.Repository
 
         }
 
-
-
         /// <summary>
 
         /// Returns the list of documents uploaded by a user
@@ -64,9 +63,9 @@ namespace WebServer.Repository
         public void Add(Document document)
         {
 
-            db.Documents.Add(document);
+            docRepo.Add(document);
 
-            db.SaveChanges();
+            docRepo.SaveChanges();
 
         }
 
