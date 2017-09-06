@@ -32,4 +32,18 @@
                     )};
             }
         }
+        $scope.getthefile = function () {
+            $http({
+                method: 'GET',
+                cache: false,
+                url: $scope.appPath + 'CourseRegConfirm/getfile',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+            }).success(function (data, status) {
+                console.log(data); 
+            }).error(function (data, status) {
+               
+            });
+        }
     }])})
