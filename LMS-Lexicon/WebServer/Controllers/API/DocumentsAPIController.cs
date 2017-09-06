@@ -27,15 +27,15 @@ namespace WebServer.Controllers
         //Upload Document
         [HttpPost]
         [Route("{controller}/upload/{fileName}/{filePath}")]
-        public async Task<HttpResponseMessage> UploadDocument(string documentName, string filePath)
+        public async Task<HttpResponseMessage> UploadDocument(string documentName, string documentPath)
         {
 
             if (!Request.Content.IsMimeMultipartContent())
             {
                 return Request.CreateErrorResponse(HttpStatusCode.UnsupportedMediaType, "The request doesn't contain valid content!");
             }
-            byte[] data = Convert.FromBase64String(filePath);
-            filePath = Encoding.UTF8.GetString(data);
+            byte[] data = Convert.FromBase64String(documentPath);
+            documentPath = Encoding.UTF8.GetString(data);
             try
             {
                 var provider = new MultipartMemoryStreamProvider();
@@ -44,7 +44,7 @@ namespace WebServer.Controllers
                 {
                     var dataStream = await file.ReadAsStreamAsync();
                     // use the data stream to persist the data to the server (file system etc)
-                    using (var fileStream = File.Create(filePath + documentName))
+                    using (var fileStream = File.Create(documentPath + documentName))
                     {
                         dataStream.Seek(0, SeekOrigin.Begin);
                         dataStream.CopyTo(fileStream);
@@ -68,16 +68,16 @@ namespace WebServer.Controllers
         {
             using (var docRepo = new DocumentRepository())
             {
-                var file = await docRepo.GetSpecificDocument(DocumentID);
-                if (file == null)
+                var Document = await docRepo.GetSpecificDocument(DocumentID);
+                if (Document == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.BadRequest);
                 }
 
-                var stream = File.Open(file.PathLocator, FileMode.Open);
+                var stream = File.Open(Document.PathLocator, FileMode.Open);
                 HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Content = new StreamContent(stream);
-                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.FileType);
+                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(Document.FileType);
                 return response;
             }
         }
