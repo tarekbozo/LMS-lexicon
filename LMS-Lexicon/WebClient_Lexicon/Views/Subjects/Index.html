@@ -17,9 +17,9 @@
         <tr ng-repeat="subject in subjects | orderBy:myOrderBy:reverse | filter:searchTerm ">
             <td>{{subject.Name}}</td>
             <td>
-                <span ng-show="subject.Courses == null"><a href="/Subjects/Edit/{{user.Id}}">Edit</a> | </span>
-                <a href="/Subjects/Details/{{user.Id}}">Details</a>
-                <span ng-show="subject.Courses==null"> | <a href="/Subjects/Delete/{{user.Id}}">Remove</a></span>
+                <span ng-show="subject.Courses == null"><a href="/Subjects/Edit/{{subject.ID}}">Edit</a> | </span>
+                <a href="/Subjects/Details/{{subject.ID}}">Details</a>
+                <span ng-show="subject.Courses==null"> | <a href="/Subjects/Delete/{{subject.ID}}">Remove</a></span>
             </td>
         </tr>
     </table>

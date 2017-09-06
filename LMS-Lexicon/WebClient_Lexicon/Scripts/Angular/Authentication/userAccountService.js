@@ -31,7 +31,7 @@
             })
             return deferred.promise;
         }
-        function getRoleNames(){
+        function getRoleNames() {
             var _url = serverBaseUrl + "/api/UsersAPI/GetRoles";
             var deferred = $q.defer();
             $http({
@@ -52,27 +52,27 @@
 
             //userData.BirthDate = userData.BirthDate.toDateString();
             //    console.log(userData);
-                var accountUrl = serverBaseUrl + "/api/Account/Register/";
-                var deferred = $q.defer();
-                var config = { headers: getHeaders() };
-                $http.post(accountUrl, JSON.stringify(userData), config).then(function (response) {
-                    console.log(response.data);
-                    deferred.resolve(response.data);
-                }, function (err) {
-                    alert(err.status);
-                })
+            var accountUrl = serverBaseUrl + "/api/Account/Register/";
+            var deferred = $q.defer();
+            var config = { headers: getHeaders() };
+            $http.post(accountUrl, JSON.stringify(userData), config).then(function (response) {
+                console.log(response.data);
+                deferred.resolve(response.data);
+            }, function (err) {
+                alert(err.status);
+            })
             return deferred.promise;
         }
 
         function deleteUser(userID) {
             var url = serverBaseUrl + "/api/Account/DeleteUser/";
             var deferred = $q.defer();
-            var config = { headers: getHeaders()};
+            var config = { headers: getHeaders() };
             $http({
                 method: 'DELETE',
                 url: url,
                 data: JSON.stringify(userID),
-                headers:getHeaders()
+                headers: getHeaders()
             }).then(function (response) {
                 deferred.resolve(response.data);
             }, function (err) {
@@ -94,7 +94,7 @@
             }).then(function (response) {
                 // save the access_token as this is required for each API call. 
                 accessToken = response.data.access_token;
-                sessionStorage.setItem("token",accessToken);
+                sessionStorage.setItem("token", accessToken);
                 // check the log screen to know currently back from the server when a user log in successfully.
                 console.log(response.data);
                 deferred.resolve(response.data);
@@ -113,7 +113,7 @@
             }).then(function (response) {
                 accessToken = "";
                 sessionStorage.setItem("token", "");
-                sessionStorage.setItem("username","");
+                sessionStorage.setItem("username", "");
                 return deferred.resolve(response.data);
             }, function (err) {
                 alert("Couldn't log out");
@@ -138,8 +138,7 @@
             if (accessToken) {
                 return { "Authorization": "Bearer " + accessToken, 'Content-Type': 'application/json' };
             }
-            else
-            {
+            else {
                 accessToken = sessionStorage.getItem("token");
                 return { "Authorization": "Bearer " + accessToken, 'Content-Type': 'application/json' }
             }

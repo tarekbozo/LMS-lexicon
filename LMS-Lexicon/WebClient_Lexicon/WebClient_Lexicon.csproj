@@ -896,6 +896,9 @@
     <Content Include="Views\Document\UploadDocument.html" />
     <Content Include="Views\Home\Home.html" />
     <Content Include="Views\Subjects\Create.html" />
+    <Content Include="Views\Subjects\Delete.html" />
+    <Content Include="Views\Subjects\Details.html" />
+    <Content Include="Views\Subjects\Edit.html" />
     <Content Include="Views\Subjects\Index.html" />
     <Content Include="Views\User\Index.html" />
     <Content Include="Web.config" />

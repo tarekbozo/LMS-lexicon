@@ -128,7 +128,7 @@ namespace WebServer.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -261,9 +261,9 @@ namespace WebServer.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -322,7 +322,7 @@ namespace WebServer.Controllers
         }
         [HttpDelete]
         [OverrideAuthorization]
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("DeleteUser")]
         public IHttpActionResult DeleteUser([FromBody]string userID)
         {
@@ -341,7 +341,7 @@ namespace WebServer.Controllers
         }
         // POST api/Account/Register
         [OverrideAuthentication]
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("Register")]
         public async Task<IHttpActionResult> Register([FromBody]RegisterExternalBindingModel id)
         {
@@ -372,7 +372,7 @@ namespace WebServer.Controllers
 
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("RegisterExternal")]
         public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel id)
         {
@@ -387,7 +387,7 @@ namespace WebServer.Controllers
                 return InternalServerError();
             }
 
-            var user = new User { UserName = id.UserName, Email = id.Email, FirstName = id.FirstName, LastName = id.LastName, BirthDate = id.BirthDate.ToString("yyyy/MM/dd")};
+            var user = new User { UserName = id.UserName, Email = id.Email, FirstName = id.FirstName, LastName = id.LastName, BirthDate = id.BirthDate.ToString("yyyy/MM/dd") };
 
             IdentityResult result = await UserManager.CreateAsync(user);
 
@@ -395,11 +395,11 @@ namespace WebServer.Controllers
             {
                 return GetErrorResult(result);
             }
-           
+
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
 
             result = await UserManager.CreateAsync(user, RoleConstants.Password(id.RoleName));

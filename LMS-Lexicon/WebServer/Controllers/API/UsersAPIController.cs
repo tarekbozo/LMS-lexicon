@@ -16,14 +16,14 @@ using Microsoft.AspNet.Identity;
 
 namespace WebServer.Controllers
 {
-    [Authorize(Roles="Admin,Student,Teacher")]
+    [Authorize(Roles = "Admin,Student,Teacher")]
     public class UsersAPIController : ApiController
     {
         UsersRepository repository = new UsersRepository();
 
         // GET: Users
         [OverrideAuthorization]
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         public List<PartialUserVM> GetUsers()
         {
             // The user can't be deleted if:
@@ -66,7 +66,7 @@ namespace WebServer.Controllers
                 PhoneNumber = s.PhoneNumber
             }).ToList();
         }
-        
+
         public IHttpActionResult GetUserInfoFromCurrentUser(string userName)
         {
             if (userName == "" || userName == null)
@@ -80,7 +80,7 @@ namespace WebServer.Controllers
                 _user = null;
                 return NotFound();
             }
-            else if (_user.UserName != userName && _user.Id!=_user.Id)
+            else if (_user.UserName != userName && _user.Id != _user.Id)
             {
                 _user = null;
                 return BadRequest();
@@ -98,10 +98,10 @@ namespace WebServer.Controllers
             }
             else
             {
-                Role r=repository.GetUserRole(_user.Id);
-                if (r.Name=="Student") { _userRole = "Student"; }
-                else if (r.Name=="Teacher") { _userRole = "Teacher"; }
-                else if (r.Name=="Admin") { _userRole = "Admin"; }
+                Role r = repository.GetUserRole(_user.Id);
+                if (r.Name == "Student") { _userRole = "Student"; }
+                else if (r.Name == "Teacher") { _userRole = "Teacher"; }
+                else if (r.Name == "Admin") { _userRole = "Admin"; }
                 else
                 {
                     r = null;
@@ -110,20 +110,21 @@ namespace WebServer.Controllers
                 r = null;
             }
             //Everything went perfect so let's send user info
-            return Ok(new PartialUserVM { 
-                FirstName=_user.FirstName, 
-                LastName=_user.LastName, 
-                Role=_userRole, 
-                Id=_user.Id, 
-                PhoneNumber=_user.PhoneNumber, 
-                Email=_user.Email, 
-                BirthDate=_user.BirthDate, 
-                UserName=_user.UserName
+            return Ok(new PartialUserVM
+            {
+                FirstName = _user.FirstName,
+                LastName = _user.LastName,
+                Role = _userRole,
+                Id = _user.Id,
+                PhoneNumber = _user.PhoneNumber,
+                Email = _user.Email,
+                BirthDate = _user.BirthDate,
+                UserName = _user.UserName
             });
 
 
 
-            
+
         }
 
         [OverrideAuthorization]

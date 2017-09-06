@@ -17,7 +17,26 @@ namespace WebServer.Controllers.API
     public class SubjectsController : ApiController
     {
         SubjectsRepository subRepo = new SubjectsRepository();
-
+        [HttpGet]
+        public IHttpActionResult Get(int ID)
+        {
+            Subject s = subRepo.Subject(ID) as Subject;
+            if (s == null)
+            {
+                return BadRequest();
+            }
+            List<Course> courses = new List<Course>();
+            foreach (Course c in s.Courses.OrderBy(c => c.Teacher.FirstName).ThenBy(c => c.Teacher.LastName))
+            {
+                Course tempC = new Course {
+                    Teacher = new User { FirstName=c.Teacher.FirstName, LastName=c.Teacher.LastName}
+                };
+                courses.Add(tempC);
+                tempC = null;
+            }
+            s = new Subject { ID = s.ID, Name = s.Name, Courses = courses };
+            return Ok(s);
+        }
         [HttpGet]
         public List<Subject> Get()
         {
@@ -50,18 +69,32 @@ namespace WebServer.Controllers.API
         [HttpPost]
         public IHttpActionResult Create(Subject subject)
         {
-            if(subject==null || subject.Name=="" || subject.Name==null || subRepo.Subject(subject.Name).Name==subject.Name){
+            bool created = subRepo.Add(subject);
+            if (created == false)
+            {
                 return BadRequest();
             }
-            try
-            {
-                subRepo.Add(subject);
+            return Ok(subject);
+        }
+        [HttpDelete]
+        public IHttpActionResult Delete(Subject id)
+        {
+            bool deleted = subRepo.Delete(id.ID);
+            if(!deleted){
+                return BadRequest();
             }
-            catch(Exception e)
-            {
-                return BadRequest(e.Message);
+            return Ok();
+        }
+        [HttpPut]
+        public IHttpActionResult Edit(Subject subject)
+        {
+            Subject s = subRepo.Subject(subject.ID) as Subject;
+            s.Name = subject.Name;
+            bool edited = subRepo.Edit(s);
+            if(!edited){
+                return BadRequest();
             }
-            return Create(subject);
+            return Ok(subject);
         }
     }
 }
