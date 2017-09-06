@@ -58,6 +58,9 @@
             if (name != "" && name && name != "null") {
                 userAccountService.userInfo(name).then(function (r) {
                     vm.user = r;
+                    if (sessionStorage.getItem("username") == r.UserName) {
+                        sessionStorage.setItem("role", r.Role);
+                    }
                 })
             }
         }
@@ -98,7 +101,6 @@
                 vm.userName = data.userName;
                 sessionStorage.setItem("username", vm.userName);
                 sessionStorage.setItem("isLoggedIn", vm.isLoggedIn);
-
                 window.location.href = "/";
             }, function (error, status) {
                 vm.isLoggedIn = false;
