@@ -24,9 +24,10 @@ namespace WebServer.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private DocumentRepository docRepo = new DocumentRepository();
 
+        //Upload Document
         [HttpPost]
         [Route("{controller}/upload/{fileName}/{filePath}")]
-        public async Task<HttpResponseMessage> UploadFile(string fileName, string filePath)
+        public async Task<HttpResponseMessage> UploadDocument(string documentName, string filePath)
         {
 
             if (!Request.Content.IsMimeMultipartContent())
@@ -43,7 +44,7 @@ namespace WebServer.Controllers
                 {
                     var dataStream = await file.ReadAsStreamAsync();
                     // use the data stream to persist the data to the server (file system etc)
-                    using (var fileStream = File.Create(filePath + fileName))
+                    using (var fileStream = File.Create(filePath + documentName))
                     {
                         dataStream.Seek(0, SeekOrigin.Begin);
                         dataStream.CopyTo(fileStream);
@@ -60,5 +61,26 @@ namespace WebServer.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.Message);
             }
         }
+        //Download Document
+        [HttpGet]
+        [Route("FileServer")]
+        public async Task<HttpResponseMessage> GetDocument(int DocumentID)
+        {
+            using (var docRepo = new DocumentRepository())
+            {
+                var file = await docRepo.GetSpecificDocument(DocumentID);
+                if (file == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.BadRequest);
+                }
+
+                var stream = File.Open(file.PathLocator, FileMode.Open);
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                response.Content = new StreamContent(stream);
+                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.FileType);
+                return response;
+            }
+        }
+
     }
 }
