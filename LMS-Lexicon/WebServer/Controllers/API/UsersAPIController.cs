@@ -74,40 +74,25 @@ namespace WebServer.Controllers
                 return BadRequest();
             }
 
-            User _user = repository.UserById(userName);
+            User _user = repository.UserByUsername(userName);
             if (_user == null)
             {
                 _user = null;
                 return NotFound();
             }
-            else if (_user.UserName != userName && _user.Id!=_user.Id)
+            else if (_user.UserName != userName)
             {
                 _user = null;
                 return BadRequest();
             }
-            string _userRole = "Unknown";
-            if (userName != _user.Id)
-            {
-                if (User.IsInRole("Student")) { _userRole = "Student"; }
-                else if (User.IsInRole("Teacher")) { _userRole = "Teacher"; }
-                else if (User.IsInRole("Admin")) { _userRole = "Admin"; }
-                else
-                {
-                    return InternalServerError();
-                }
-            }
+            
+            string _userRole="Unknown";
+            if(User.IsInRole("Student")){ _userRole="Student"; }
+            else if(User.IsInRole("Teacher")){ _userRole="Teacher"; }
+            else if(User.IsInRole("Admin")){ _userRole="Admin"; }
             else
             {
-                Role r=repository.GetUserRole(_user.Id);
-                if (r.Name=="Student") { _userRole = "Student"; }
-                else if (r.Name=="Teacher") { _userRole = "Teacher"; }
-                else if (r.Name=="Admin") { _userRole = "Admin"; }
-                else
-                {
-                    r = null;
-                    return InternalServerError();
-                }
-                r = null;
+                return InternalServerError();
             }
             //Everything went perfect so let's send user info
             return Ok(new PartialUserVM { 
@@ -139,16 +124,13 @@ namespace WebServer.Controllers
         }
         [OverrideAuthorization]
         [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public IHttpActionResult GetRoles()
+        public IHttpActionResult GetAllRoleNames()
         {
-            List<Role> roles = new List<Role>();
+            List<string> roles = new List<string>();
             foreach (Role r in new RolesRepository().Roles())
             {
-                Role temp = new Role();
-                temp.Id = r.Id;
-                temp.Name = r.Name;
-                roles.Add(temp);
+                string roleName = r.Name;
+                roles.Add(roleName);
             }
             if (roles.Count == 0) { return NotFound(); }
             return Ok(roles);

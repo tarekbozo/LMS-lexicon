@@ -17,8 +17,6 @@ using WebServer.Models;
 using WebServer.Providers;
 using WebServer.Results;
 using System.Web.Http.Cors;
-using WebServer.Models.LMS;
-using WebServer.Repository;
 
 namespace WebServer.Controllers
 {
@@ -320,61 +318,35 @@ namespace WebServer.Controllers
 
             return logins;
         }
-        [HttpDelete]
-        [OverrideAuthorization]
-        [Authorize(Roles="Admin")]
-        [Route("DeleteUser")]
-        public IHttpActionResult DeleteUser([FromBody]string userID)
-        {
-            if (userID == "" || userID == null)
-            {
-                return BadRequest();
-            }
-            User u = new UsersRepository().UserById(userID) as User;
-            if (u == null)
-            {
-                return NotFound();
-            }
-            u = null;
-            new UsersRepository().Delete(userID);
-            return Ok();
-        }
+
         // POST api/Account/Register
         [OverrideAuthentication]
         [Authorize(Roles="Admin")]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register([FromBody]RegisterExternalBindingModel id)
+        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
-
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = new User
-                {
-                    UserName = id.UserName,
-                    FirstName = id.FirstName,
-                    LastName = id.LastName,
-                    Email = id.Email,
-                    BirthDate = id.BirthDate.ToString("yyyy/MM/dd")
-                };
+                return BadRequest(ModelState);
+            }
 
-                var result = await UserManager.CreateAsync(user, RoleConstants.Password(id.RoleName));
-                if (result.Succeeded)
-                {
-                    await UserManager.AddToRoleAsync(user.Id, id.RoleName);
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
-                    return Ok();
-                }
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
                 return GetErrorResult(result);
             }
 
-            return InternalServerError();
+            return Ok();
         }
 
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
-        [Authorize(Roles="Admin")]
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("RegisterExternal")]
-        public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel id)
+        public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -387,25 +359,18 @@ namespace WebServer.Controllers
                 return InternalServerError();
             }
 
-            var user = new User { UserName = id.UserName, Email = id.Email, FirstName = id.FirstName, LastName = id.LastName, BirthDate = id.BirthDate.ToString("yyyy/MM/dd")};
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user);
-
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
-           
+
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result); 
-            }
-
-            result = await UserManager.CreateAsync(user, RoleConstants.Password(id.RoleName));
-            if (result.Succeeded)
-            {
-                await UserManager.AddToRoleAsync(user.Id, id.RoleName);
             }
             return Ok();
         }

@@ -1,0 +1,26 @@
+﻿<h2>Subjects</h2>
+<hr />
+<div ng-app="LMSApp" ng-init="InitialSubjects()" ng-cloak>
+    <p>
+        <a href="/Subjects/Create">Create a new Subject</a>
+    </p>
+    <div class="left">
+        <form class="search glyphicon glyphicon-search" method="get">
+            <input type="text" class="round" name="Search" ng-model="searchTerm" placeholder="Free Search" style="width:160px; height:25px;font-family: Helvetica, Arial, sans-serif">
+        </form>
+    </div>
+    <table class="table">
+        <tr>
+            <th ng-click="orderByMe('Name')">Name</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="subject in subjects | orderBy:myOrderBy:reverse | filter:searchTerm ">
+            <td>{{subject.Name}}</td>
+            <td>
+                <span ng-show="subject.Courses == null"><a href="/Subjects/Edit/{{user.Id}}">Edit</a> | </span>
+                <a href="/Subjects/Details/{{user.Id}}">Details</a>
+                <span ng-show="subject.Courses==null"> | <a href="/Subjects/Delete/{{user.Id}}">Remove</a></span>
+            </td>
+        </tr>
+    </table>
+</div>
