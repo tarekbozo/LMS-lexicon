@@ -43,7 +43,7 @@ namespace WebServer.Controllers
 
         // UploadDocument Methods
 
-        // Get : Specific Course
+         //Get : Specific Course
         //public IHttpActionResult UploadDocumentForSpecificCourse()
         //{
         //    ViewBag.Courses = GetCourses(false);
@@ -73,43 +73,8 @@ namespace WebServer.Controllers
         //    return View(viewModel);
         //}
 
-        //// PUT: api/Documents/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutDocument(int id, Document document)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (id != document.ID)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    db.Entry(document).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!DocumentExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
-
         // POST: api/Documents
-        [ResponseType(typeof(Document))]
+        //[ResponseType(typeof(Document))]
         public IHttpActionResult PostDocument(Document document)
         {
             if (!ModelState.IsValid)
@@ -132,8 +97,7 @@ namespace WebServer.Controllers
                 return NotFound();
             }
 
-            docRepo.Documents.Remove(document);
-            docRepo.SaveChanges();
+            docRepo.Delete(id);
 
             return Ok(document);
         }
@@ -146,6 +110,7 @@ namespace WebServer.Controllers
             }
             base.Dispose(disposing);
         }
+
 
         private bool DocumentExists(int id)
         {
