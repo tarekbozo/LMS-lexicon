@@ -54,7 +54,7 @@ namespace WebServer.Repository
 
         public User UserById(string id)
         {
-            return Users().FirstOrDefault(u => u.Id == id);
+            return Users().FirstOrDefault(u => u.Id == id || string.Compare(u.UserName, id, true) == 0);
         }
 
         public User UserByUsername(string userName)
