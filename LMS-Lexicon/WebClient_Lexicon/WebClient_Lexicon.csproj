@@ -64,7 +64,7 @@
     <Content Include="Scripts\Angular\Classroom\Classroom.js" />
     <Content Include="Scripts\Angular\Course\Course.js" />
     <Content Include="Scripts\Angular\Document\Document.js" />
-    <Content Include="Scripts\Angular\Document\Grade\Grade.js" />
+    <Content Include="Scripts\Angular\Grade\Grade.js" />
     <Content Include="Scripts\Angular\Main.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Index.html" />

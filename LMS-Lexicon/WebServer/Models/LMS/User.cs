@@ -76,17 +76,5 @@ namespace WebServer.Models.LMS
 
             return result;
         }
-
-        public static ValidationResult ValidateBirthDate(DateTime birthDate, ValidationContext context)
-        {
-            ValidationResult result = null;
-
-            if (birthDate.Date >= DateTime.Now.Date)
-            {
-                result = new ValidationResult(string.Format("{0} must be anterior to today.", context.DisplayName));
-            }
-
-            return result;
-        }
     }
 }

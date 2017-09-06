@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WebServer.Models;
@@ -20,101 +24,63 @@ namespace WebServer.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private DocumentRepository docRepo = new DocumentRepository();
 
-
-        // GET: api/Documents
-        public Document document { get; set; }
-
-        public IEnumerable<Document> Documents()
+        //Upload Document
+        [HttpPost]
+        [Route("{controller}/upload/{fileName}/{filePath}")]
+        public async Task<HttpResponseMessage> UploadDocument(string documentName, string documentPath)
         {
-            return docRepo.Documents();
-        }
 
-        // GET: api/Documents/5
-        [ResponseType(typeof(Document))]
-        public IHttpActionResult GetDocument(int id)
-        {
-            Document document = db.Documents.Find(id);
-            if (document == null)
+            if (!Request.Content.IsMimeMultipartContent())
             {
-                return NotFound();
+                return Request.CreateErrorResponse(HttpStatusCode.UnsupportedMediaType, "The request doesn't contain valid content!");
             }
-            return Ok(document);
-        }
-
-        // UploadDocument Methods
-
-         //Get : Specific Course
-        //public IHttpActionResult UploadDocumentForSpecificCourse()
-        //{
-        //    ViewBag.Courses = GetCourses(false);
-        //    return View();
-        //}
-
-        //// POST : Specific Course
-        //[HttpPost]
-        //public IHttpActionResult UploadDocumentForSpecificCourse(UploadDocumentVM viewModel)
-        //{
-        //    if (ModelState.IsValid && viewModel.File != null)
-        //    {
-        //        string result = CreateDocument(viewModel, RoleConstants.Teacher);
-
-        //        if (result.Length == 0)
-        //            return RedirectToAction("MyDocuments");
-        //        else
-        //        {
-        //            ViewBag.ErrorMessage = result;
-        //            ViewBag.Courses = GetCourses(false);
-
-        //            return View(viewModel);
-        //        }
-        //    }
-
-        //    ViewBag.Courses = GetCourses(false);
-        //    return View(viewModel);
-        //}
-
-        // POST: api/Documents
-        //[ResponseType(typeof(Document))]
-        public IHttpActionResult PostDocument(Document document)
-        {
-            if (!ModelState.IsValid)
+            byte[] data = Convert.FromBase64String(documentPath);
+            documentPath = Encoding.UTF8.GetString(data);
+            try
             {
-                return BadRequest(ModelState);
+                var provider = new MultipartMemoryStreamProvider();
+                await Request.Content.ReadAsMultipartAsync(provider);
+                foreach (var file in provider.Contents)
+                {
+                    var dataStream = await file.ReadAsStreamAsync();
+                    // use the data stream to persist the data to the server (file system etc)
+                    using (var fileStream = File.Create(documentPath + documentName))
+                    {
+                        dataStream.Seek(0, SeekOrigin.Begin);
+                        dataStream.CopyTo(fileStream);
+                    }
+                    var response = Request.CreateResponse(HttpStatusCode.OK);
+                    response.Content = new StringContent("Successful upload", Encoding.UTF8, "text/plain");
+                    response.Content.Headers.ContentType = new MediaTypeWithQualityHeaderValue(@"text/html");
+                    return response;
+                }
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed);
             }
-
-            db.Documents.Add(document);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = document.ID }, document);
-        }
-        // POST: Documents/Delete
-        [ResponseType(typeof(Document))]
-        public IHttpActionResult DeleteDocument(int id)
-        {
-            Document document = db.Documents.Find(id);
-            if (document == null)
+            catch (Exception e)
             {
-                return NotFound();
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.Message);
             }
-
-            docRepo.Delete(id);
-
-            return Ok(document);
         }
-
-        protected override void Dispose(bool disposing)
+        //Download Document
+        [HttpGet]
+        [Route("FileServer")]
+        public async Task<HttpResponseMessage> GetDocument(int DocumentID)
         {
-            if (disposing)
+            using (var docRepo = new DocumentRepository())
             {
-                db.Dispose();
+                var Document = await docRepo.GetSpecificDocument(DocumentID);
+                if (Document == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.BadRequest);
+                }
+
+                var stream = File.Open(Document.PathLocator, FileMode.Open);
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                response.Content = new StreamContent(stream);
+                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(Document.FileType);
+                return response;
             }
-            base.Dispose(disposing);
         }
 
-
-        private bool DocumentExists(int id)
-        {
-            return db.Documents.Count(e => e.ID == id) > 0;
-        }
     }
 }

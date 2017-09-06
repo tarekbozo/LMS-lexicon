@@ -128,5 +128,10 @@ namespace WebServer.Repository
         }
 
         #endregion
+
+        internal System.Threading.Tasks.Task<object> GetSpecificDocument(int DocumentID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
