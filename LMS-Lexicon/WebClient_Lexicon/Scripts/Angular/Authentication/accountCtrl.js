@@ -9,11 +9,10 @@
         // Bindable properties and functions are placed on vm.
         vm.title = 'AccountCtrl';
         vm.isRegistered = false;
-        if (sessionStorage.getItem("isLoggedIn")!=undefined) {
+        if (sessionStorage.getItem("isLoggedIn") != undefined) {
             vm.isLoggedIn = sessionStorage.getItem("isLoggedIn");
         }
-        else
-        {
+        else {
             vm.isLoggedIn = false;
         }
         vm.userName = sessionStorage.getItem("username");
@@ -53,10 +52,10 @@
             //vm.id = $routeParams.userid - routeParams returns undefined don't know why;
             //new solution for getting parameters
             var n = window.location.href.lastIndexOf('/');
-            vm.DeleteId=window.location.href.substring(n + 1);
+            vm.DeleteId = window.location.href.substring(n + 1);
         }
         function userInfo(name) {
-            if (name != "" && name && name!="null") {
+            if (name != "" && name && name != "null") {
                 userAccountService.userInfo(name).then(function (r) {
                     vm.user = r;
                 })
@@ -77,7 +76,7 @@
             }
         }
         function registerUser() {
-            if (isNaN(Date.parse(vm.registerUserData.BirthDate))==false) {
+            if (isNaN(Date.parse(vm.registerUserData.BirthDate)) == false) {
                 userAccountService.registerUser(vm.registerUserData).then(function (data) {
                     vm.isRegistered = true;
                     window.location.href = "/Users";
@@ -89,8 +88,7 @@
                     }
                 });
             }
-            else
-            {
+            else {
                 vm.ErrorMessage = "Date is invalid, make sure it have the format yyyy-mm-dd";
             }
         }
@@ -101,20 +99,20 @@
                 sessionStorage.setItem("username", vm.userName);
                 sessionStorage.setItem("isLoggedIn", vm.isLoggedIn);
 
-                window.location.href="/";
+                window.location.href = "/";
             }, function (error, status) {
                 vm.isLoggedIn = false;
                 console.log(status);
             });
         }
         function logOut() {
-            userAccountService.logOutCurrentUser().then(function(response) {
+            userAccountService.logOutCurrentUser().then(function (response) {
                 vm.isLoggedIn = false;
                 vm.userName = "";
-                sessionStorage.setItem("username","");
-                sessionStorage.setItem("token","");
-                sessionStorage.setItem("isLoggedIn",false);
-                sessionStorage.setItem("role",null);
+                sessionStorage.setItem("username", "");
+                sessionStorage.setItem("token", "");
+                sessionStorage.setItem("isLoggedIn", false);
+                sessionStorage.setItem("role", null);
                 window.location.href = "/";
             }, function (err) {
                 alert("Something is not right");

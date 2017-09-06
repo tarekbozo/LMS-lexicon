@@ -94,19 +94,19 @@
         }).
         when('/Subjects/Create', {
             templateUrl: 'Views/Subjects/Create.html',
-            controller: 'Subjects_CreateController'
+            controller: 'Subjects_CreateDeleteEditController'
         }).
-        when('/Subjects/Edit/:userid', {
+        when('/Subjects/Edit/:subjectid', {
             templateUrl: 'Views/Subjects/Edit.html',
-            controller: 'Subjects_EditController'
+            controller: 'Subjects_CreateDeleteEditController'
         }).
-        when('/Subjects/Details/:userid', {
+        when('/Subjects/Details/:subjectid', {
             templateUrl: 'Views/Subjects/Details.html',
-            controller: 'Subjects_DetailsController'
+            controller: 'Subjects_CreateDeleteEditController'
         }).
-        when('/Subjects/Delete/:userid', {
+        when('/Subjects/Delete/:subjectid', {
             templateUrl: 'Views/Subjects/Delete.html',
-            controller: 'Subjects_DeleteController'
+            controller: 'Subjects_CreateDeleteEditController'
         }).
         otherwise({
             redirectTo: '/'

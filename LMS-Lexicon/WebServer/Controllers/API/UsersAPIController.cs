@@ -16,14 +16,14 @@ using Microsoft.AspNet.Identity;
 
 namespace WebServer.Controllers
 {
-    [Authorize(Roles="Admin,Student,Teacher")]
+    [Authorize(Roles = "Admin,Student,Teacher")]
     public class UsersAPIController : ApiController
     {
         UsersRepository repository = new UsersRepository();
 
         // GET: Users
         [OverrideAuthorization]
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         public List<PartialUserVM> GetUsers()
         {
             // The user can't be deleted if:
@@ -66,7 +66,7 @@ namespace WebServer.Controllers
                 PhoneNumber = s.PhoneNumber
             }).ToList();
         }
-        
+
         public IHttpActionResult GetUserInfoFromCurrentUser(string userName)
         {
             if (userName == "" || userName == null)
@@ -74,41 +74,57 @@ namespace WebServer.Controllers
                 return BadRequest();
             }
 
-            User _user = repository.UserByUsername(userName);
+            User _user = repository.UserById(userName);
             if (_user == null)
             {
                 _user = null;
                 return NotFound();
             }
-            else if (_user.UserName != userName)
+            else if (_user.UserName != userName && _user.Id != _user.Id)
             {
                 _user = null;
                 return BadRequest();
             }
-            
-            string _userRole="Unknown";
-            if(User.IsInRole("Student")){ _userRole="Student"; }
-            else if(User.IsInRole("Teacher")){ _userRole="Teacher"; }
-            else if(User.IsInRole("Admin")){ _userRole="Admin"; }
+            string _userRole = "Unknown";
+            if (userName != _user.Id)
+            {
+                if (User.IsInRole("Student")) { _userRole = "Student"; }
+                else if (User.IsInRole("Teacher")) { _userRole = "Teacher"; }
+                else if (User.IsInRole("Admin")) { _userRole = "Admin"; }
+                else
+                {
+                    return InternalServerError();
+                }
+            }
             else
             {
-                return InternalServerError();
+                Role r = repository.GetUserRole(_user.Id);
+                if (r.Name == "Student") { _userRole = "Student"; }
+                else if (r.Name == "Teacher") { _userRole = "Teacher"; }
+                else if (r.Name == "Admin") { _userRole = "Admin"; }
+                else
+                {
+                    r = null;
+                    return InternalServerError();
+                }
+                r = null;
             }
             //Everything went perfect so let's send user info
-            return Ok(new PartialUserVM { 
-                FirstName=_user.FirstName, 
-                LastName=_user.LastName, 
-                Role=_userRole, 
-                Id=_user.Id, 
-                PhoneNumber=_user.PhoneNumber, 
-                Email=_user.Email, 
-                BirthDate=_user.BirthDate, 
-                UserName=_user.UserName
+            return Ok(new PartialUserVM
+            {
+                FirstName = _user.FirstName,
+                LastName = _user.LastName,
+                Role = _userRole,
+                Id = _user.Id,
+                PhoneNumber = _user.PhoneNumber,
+                Email = _user.Email,
+                BirthDate = _user.BirthDate,
+                UserName = _user.UserName
             });
 
 
 
-            
+
         }
 
         [OverrideAuthorization]
@@ -124,13 +140,16 @@ namespace WebServer.Controllers
         }
         [OverrideAuthorization]
         [Authorize(Roles = "Admin")]
-        public IHttpActionResult GetAllRoleNames()
+        [HttpGet]
+        public IHttpActionResult GetRoles()
         {
-            List<string> roles = new List<string>();
+            List<Role> roles = new List<Role>();
             foreach (Role r in new RolesRepository().Roles())
             {
-                string roleName = r.Name;
-                roles.Add(roleName);
+                Role temp = new Role();
+                temp.Id = r.Id;
+                temp.Name = r.Name;
+                roles.Add(temp);
             }
             if (roles.Count == 0) { return NotFound(); }
             return Ok(roles);

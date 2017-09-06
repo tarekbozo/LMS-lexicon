@@ -1,0 +1,25 @@
+﻿<div ng-init="Details()">
+<h2>Edit {{subject.Name}}</h2>
+
+<div class="form-horizontal">
+    <hr />
+    <input type="hidden" value="{{subject.ID}}"/>
+    <div class="form-group">
+        <h3 class="control-label col-md-2">Name</h3>
+        <div class="col-md-10">
+            <input type="text" name="Name" data-ng-model="subjectName" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" ng-click="Edit()"/>
+        </div>
+    </div>
+    <p class="text-danger">{{ErrorMessage}}</p>
+</div>
+
+<div>
+    <a href="/Subjects">Back to Subjects</a>
+</div>
+</div>
