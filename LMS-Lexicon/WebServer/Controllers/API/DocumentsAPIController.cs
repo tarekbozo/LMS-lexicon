@@ -27,15 +27,15 @@ namespace WebServer.Controllers
 
         //Upload Document
         [HttpPost]
-        public async Task<HttpResponseMessage> UploadDocument(string documentName, string documentPath)
+        public async Task<HttpResponseMessage> UploadDocument(string documentName, string documentID)
         {
 
             if (!Request.Content.IsMimeMultipartContent())
             {
                 return Request.CreateErrorResponse(HttpStatusCode.UnsupportedMediaType, "The request doesn't contain valid content!");
             }
-            byte[] data = Convert.FromBase64String(documentPath);
-            documentPath = Encoding.UTF8.GetString(data);
+            byte[] data = Convert.FromBase64String(documentID);
+            documentID = Encoding.UTF8.GetString(data);
             try
             {
                 var provider = new MultipartMemoryStreamProvider();
@@ -44,7 +44,7 @@ namespace WebServer.Controllers
                 {
                     var dataStream = await file.ReadAsStreamAsync();
                     // use the data stream to persist the data to the server (file system etc)
-                    using (var fileStream = File.Create(documentPath + documentName))
+                    using (var fileStream = File.Create(documentID + documentName))
                     {
                         dataStream.Seek(0, SeekOrigin.Begin);
                         dataStream.CopyTo(fileStream);
@@ -61,6 +61,18 @@ namespace WebServer.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.Message);
             }
         }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(Document id)
+        {
+            bool deleted = docRepo.document.Delete(id);
+            if (!deleted)
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
+
         //Download Document
         //[HttpGet]
         //[Route("FileServer")]
