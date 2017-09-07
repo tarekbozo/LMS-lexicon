@@ -14,7 +14,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "/API/document/upload/" + file.name + "/" + encodedString ,
+                        url: "/API/document/upload/" + file.name + "/" + encodedString,
                         contentType: false,
                         processData: false,
                         data: data,
@@ -28,11 +28,13 @@
                             console.log(err);
                         }
                     }
-      
-                    )};
+
+                    )
+                };
             }
         }
-        $scope.getthefile = function () {
+        //Download Document
+        $scope.downloadDocument = function () {
             $http({
                 method: 'GET',
                 cache: false,
@@ -41,9 +43,10 @@
                     'Content-Type': 'application/json; charset=utf-8'
                 }
             }).success(function (data, status) {
-                console.log(data); 
+                console.log(data);
             }).error(function (data, status) {
-               
+
             });
         }
-    }])})
+    }])
+})
