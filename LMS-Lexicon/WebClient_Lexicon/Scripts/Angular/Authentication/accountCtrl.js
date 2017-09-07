@@ -16,6 +16,7 @@
             vm.isLoggedIn = false;
         }
         vm.userName = sessionStorage.getItem("username");
+        
         vm.Role = sessionStorage.getItem("role");
 
         vm.registerUserData = {

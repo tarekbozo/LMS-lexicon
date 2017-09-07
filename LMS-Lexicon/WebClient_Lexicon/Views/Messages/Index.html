@@ -1,0 +1,27 @@
+﻿<h2>Mailbox</h2>
+<hr />
+<div ng-app="LMSApp" ng-init="Start()" ng-cloak>
+    <p>
+        <a href="/Messages/Send">Send a new Message</a>
+    </p>
+    <div class="left">
+        <form class="search glyphicon glyphicon-search" method="get">
+            <input type="text" class="round" name="Search" ng-model="searchTerm" placeholder="Free Search" style="width:160px; height:25px;font-family: Helvetica, Arial, sans-serif">
+        </form>
+    </div>
+    <table class="table">
+        <tr>
+            <th ng-click="orderByMe('Sent')">Sent</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="mail in messages | orderBy:myOrderBy:reverse | filter:searchTerm ">
+            <td>{{message}}</td>
+            <td>
+                <span ng-show="subject.Courses == null"><a href="/Subjects/Edit/{{message.ID}}">Edit</a> | </span>
+                <a href="/Subjects/Details/{{message.ID}}">Details</a>
+                <span ng-show="subject.Courses==null"> | <a href="/Subjects/Delete/{{message.ID}}">Remove</a></span>
+            </td>
+        </tr>
+    </table>
+</div>
+

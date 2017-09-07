@@ -128,6 +128,10 @@
             templateUrl: 'Views/Courses/Create.html',
             controller: 'Courses_Create_Ctrl'
         }).
+        when('/Messages', {
+            templateUrl: 'Views/Messages/Index.html',
+            controller: 'Messages_Index_Ctrl'
+        }).
         otherwise({
             redirectTo: '/'
         });

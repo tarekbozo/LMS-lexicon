@@ -9,7 +9,6 @@
     <base href="/">
 </head>
 <body data-ng-app="LMSApp">
-    {{vm.userId}}
     <div ng-controller="AccountCtrl as vm">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -124,6 +123,9 @@
                             <a href="Students/MyGrades" ng-if="UnreadNotifications>0">My Grades({{UnreadNotifications}})</a>
                             <a href="Students/MyGrades" ng-if="UnreadNotifications<=0 || UnreadNotifications==undefined">My Grades</a>
                         </li>
+                        <li>
+                            <a href="/Messages/">Mailbox</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="navbar-collapse collapse">
@@ -161,5 +163,6 @@
     <script src="Scripts/Angular/Subjects/Subjects.js"></script>
     <script src="Scripts/Angular/Courses/Courses.js"></script>
     <script src="Scripts/Angular/Document/Document.js"></script>
+    <script src="Scripts/Angular/Messages/Messages.js"></script>
 </body>
 </html>
