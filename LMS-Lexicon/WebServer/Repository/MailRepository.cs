@@ -21,47 +21,40 @@ namespace WebServer.Repository
             return db.Messages.SingleOrDefault(s => s.ID == id);
         }
 
-        /// <summary>
-        /// Work to do here
-        /// </summary>
-        /// <param name="subject"></param>
-        /// <returns></returns>
-        public bool Add(Subject subject)
+        public void Add(Message message)
         {
-            if (db.Subjects.FirstOrDefault(s => string.Compare(s.Name, subject.Name, true) == 0) != null)
-            {
-                return false;
-            }
-            db.Subjects.Add(subject);
+            db.Messages.Add(message);
             SaveChanges();
-            return true;
         }
 
-        public bool Edit(Subject subject)
-        {
-            if (db.Subjects.FirstOrDefault(s => string.Compare(s.Name, subject.Name, true) == 0 && s.ID != subject.ID) != null)
-            {
-                return false;
-            }
-            db.Entry(subject).State = EntityState.Modified;
-            db.SaveChanges();
-            return true;
-        }
-
-        public bool Delete(int? id)
+        public void Delete(int? id,string email)
         {
             Message message = Message(id);
 
-            if (subject != null)
+            if (message != null)
             {
-                if (subject.Courses.Where(c => c.Documents.Count() == 0 && c.SubjectID == id).Count() == 0)
+                if (message.Reciever != null)
                 {
-                    db.Subjects.Remove(subject);
+                    if(email==message.Reciever.Email){
+                        message.Reciever = null;
+                        message.RecieverId = null;
+                    }
+                }
+                if (message.Sender != null)
+                {
+                    if (email == message.Sender.Email)
+                    {
+                        message.Sender = null;
+                        message.SenderId = null;
+                    }
+                }
+
+                if (message.Sender == null && message.Reciever == null)
+                {
+                    db.Messages.Remove(Message(id));
                     SaveChanges();
-                    return true;
                 }
             }
-            return false;
         }
 
         private void SaveChanges()
