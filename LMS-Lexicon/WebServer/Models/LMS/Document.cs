@@ -40,6 +40,11 @@ namespace WebServer.Models.LMS
         [ForeignKey("VisibleFor")]
         public string RoleID { get; set; }
         public virtual Role VisibleFor { get; set; }
+
+        internal bool Delete(Document id)
+        {
+            throw new NotImplementedException();
+        }
     }
     public class Assignment 
     {

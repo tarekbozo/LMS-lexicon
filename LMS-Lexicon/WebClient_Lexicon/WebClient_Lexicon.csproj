@@ -899,6 +899,7 @@
     <Content Include="Views\Courses\Edit.html" />
     <Content Include="Views\Courses\Index.html" />
     <Content Include="Views\Document\UploadDocument.html" />
+    <Content Include="Views\Document\Index.html" />
     <Content Include="Views\Home\Home.html" />
     <Content Include="Views\Subjects\Create.html" />
     <Content Include="Views\Subjects\Delete.html" />
