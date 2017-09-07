@@ -1,6 +1,7 @@
 ﻿(function () {
     var app = angular.module("LMSApp");
     var serverBaseUrl = "http://localhost:51942";
+    var option = { headers: getHeaders() };
 
     //index
     app.controller("Subjects_IndexController", ["$scope", "$http", function ($scope, $http) {
@@ -12,14 +13,14 @@
             $scope.myOrderBy = type;
         };
         $scope.InitialSubjects = function () {
-            $http.get(serverBaseUrl+'/api/Subjects/Get')
+            $http.get(serverBaseUrl+'/api/Subjects/Get',option)
                 .then(function (response) {
                     $scope.subjects = JSON.parse(JSON.stringify(response.data));
                 });
         };
 
     }]);
-    //Create,Delete,Edit
+    //Create,Delete,Edit,Details
     app.controller("Subjects_CreateDeleteEditController", ["$scope", "$http", function ($scope, $http) {
         var subject = {
             ID: null,
@@ -27,7 +28,7 @@
         }
         $scope.Details = function () {
             var n = window.location.href.lastIndexOf('/');
-            $http.get(serverBaseUrl + '/api/Subjects/Get?ID=' + window.location.href.substring(n + 1))
+            $http.get(serverBaseUrl + '/api/Subjects/Get?ID=' + window.location.href.substring(n + 1),option)
             .then(function (response) {
                 $scope.subject = response.data;
                 subject.ID = response.data.ID;
@@ -87,4 +88,7 @@
         }
 
     }]);
+    function getHeaders() {
+        return { "Authorization": "Bearer " + sessionStorage.getItem("token"), 'Content-Type': 'application/json' };
+    }
 }());

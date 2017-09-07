@@ -1,0 +1,29 @@
+﻿<div ng-init="Start()">
+    <h2>Details for {{course.Subject.Name}}</h2>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                <b>Name</b>
+            </dt>
+            <dd>
+                <p>{{course.Subject.Name}}</p>
+            </dd>
+            <dt>
+                <b>Teacher's name</b>
+            </dt>
+            <dd>
+                <p>{{course.Teacher.FirstName}} {{course.Teacher.LastName}}</p>
+            </dd>
+            <dt>
+                <b>Email</b>
+            </dt>
+            <dd>
+                {{course.Teacher.Email}}
+            </dd>
+        </dl>
+    </div>
+    <p>
+        <a href="/Courses">Back to Courses</a>
+    </p>
+</div>

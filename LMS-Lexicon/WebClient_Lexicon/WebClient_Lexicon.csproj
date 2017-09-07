@@ -62,7 +62,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\Angular\Attendance\Attendance.js" />
     <Content Include="Scripts\Angular\Classroom\Classroom.js" />
-    <Content Include="Scripts\Angular\Course\Course.js" />
+    <Content Include="Scripts\Angular\Courses\Courses.js" />
     <Content Include="Scripts\Angular\Document\Document.js" />
     <Content Include="Scripts\Angular\Grade\Grade.js" />
     <Content Include="Scripts\Angular\Main.js" />
@@ -893,6 +893,12 @@
     <Content Include="Views\Account\Delete.html" />
     <Content Include="Views\Account\Login.html" />
     <Content Include="Views\Account\Register.html" />
+    <Content Include="Views\Courses\Create.html" />
+    <Content Include="Views\Courses\Delete.html" />
+    <Content Include="Views\Courses\Details.html" />
+    <Content Include="Views\Courses\Edit.html" />
+    <Content Include="Views\Courses\Index.html" />
+    <Content Include="Views\Document\UploadDocument.html" />
     <Content Include="Views\Document\Index.html" />
     <Content Include="Views\Home\Home.html" />
     <Content Include="Views\Subjects\Create.html" />
@@ -909,7 +915,6 @@
   <ItemGroup>
     <Folder Include="Views\Attendance\" />
     <Folder Include="Views\Classroom\" />
-    <Folder Include="Views\Course\" />
     <Folder Include="Views\Grade\" />
     <Folder Include="Views\Intership\" />
     <Folder Include="Views\News\" />

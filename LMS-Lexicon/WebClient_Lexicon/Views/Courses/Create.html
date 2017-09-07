@@ -1,0 +1,36 @@
+﻿<div>
+    <h2>Create a new Course</h2>
+    <form method="POST">
+        <div class="form-horizontal" ng-cloak>
+            <hr />
+            <div class="form-group">
+                <h3 class="control-label" ng-click="orderBySubject('Name')">Subject</h3>
+                <div class="row">
+                    <div class="col-md-10">
+                        <select id="subjects" name="sID" class="form-control" ng-model="subject" ng-change="update()" ng-options="subject.ID as subject.Name for subject in subjects | orderBy:TheOrderBySubject:Sreverse"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <h3 class="control-label" ng-click="orderByTeacher('LastName')">Teacher</h3>
+                <div class="row">
+                    <div class="col-md-10">
+                        <select id="teachers" name="tID" class="form-control" data-ng-model="teacher">
+                            <option ng-repeat="teacher in teachers | orderBy:TheOrderByTeacher:Treverse" value="{{teacher.Id}}">{{teacher.FirstName}} {{teacher.LastName}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-init="Start()">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" ng-click="Create()"/>
+                </div>
+                <p class="text-danger">{{ErrorMessage}}</p>
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <a href="/Courses">Back to Courses</a>
+    </div>
+</div>

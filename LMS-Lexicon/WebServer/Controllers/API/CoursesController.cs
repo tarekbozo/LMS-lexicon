@@ -11,111 +11,104 @@ using System.Web.Http.Description;
 using WebServer.Models;
 using WebServer.Models.LMS;
 using WebServer.Repository;
+using WebServer.ViewModels;
 
 namespace WebServer.Controllers.API
 {
+    [Authorize(Roles="Admin")]
     public class CoursesController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-        CoursesRepository corsRepo = new CoursesRepository();
-
-        // GET: api/Courses
-        public IQueryable<Course> GetCourses()
+        /// <summary>
+        /// Return all courses
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public List<PartialCourseVM> Get()
         {
-            return db.Courses;
+            //On visual studio 2017, access violation might occur than we are sending the whole user through the api.
+            //return new CoursesRepository().Courses() works fine on vs 13 with the api
+            //Guess that microsoft want us to avoid sending security information.
+
+            return new CoursesRepository().Courses()
+                                          .Select(c => new PartialCourseVM
+                                          {
+                                              ID = c.ID,
+                                              IsDeletable = c.Documents.Count() + c.Schedules.Count() == 0,
+                                              //Binding data
+                                              Subject = new Subject
+                                              {
+                                                  ID = c.SubjectID,
+                                                  Name = c.Subject.Name
+                                              },
+                                              Teacher = new PartialUserVM
+                                              {
+                                                  //Set data that are needed
+                                                  Id = c.TeacherID,
+                                                  FirstName = c.Teacher.FirstName,
+                                                  LastName = c.Teacher.LastName,
+                                                  Email = c.Teacher.Email,
+                                                  HasSchedules = c.Schedules.Count > 0
+                                              }
+                                          })
+                                          .ToList();
         }
-
-        // GET: api/Courses/5
-        [ResponseType(typeof(Course))]
-        public IHttpActionResult GetCourse(int id)
+        [HttpGet]
+        public IHttpActionResult Get(int ID)
         {
-            Course course = db.Courses.Find(id);
+            if (ID == null)
+            {
+                return BadRequest();
+            }
+            Course course = new CoursesRepository().Course(ID) as Course;
             if (course == null)
             {
-                return NotFound();
+                return BadRequest("Couldn't find Course with id of "+ID);
             }
-
-            return Ok(course);
+            return Ok(new Course { ID = course.ID, Subject = new Subject { ID=course.Subject.ID, Name = course.Subject.Name }, Teacher = new User { Id=course.Teacher.Id, FirstName = course.Teacher.FirstName, LastName = course.Teacher.LastName, Email = course.Teacher.Email } });
         }
-
-        // PUT: api/Courses/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutCourse(int id, Course course)
+        [HttpDelete]
+        public IHttpActionResult Delete(Course id)
         {
-            if (!ModelState.IsValid)
+            bool deleted = new CoursesRepository().Delete(id.ID);
+            if (!deleted)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Course couldn't be Deleted");
             }
-
-            if (id != course.ID)
+            return Ok();
+        }
+        [HttpPatch]
+        public IHttpActionResult Edit(EditCourseVM course)
+        {
+            Course c = new CoursesRepository().Course(course.ID) as Course;
+            if (c == null)
+            {
+                return BadRequest("Course id didn't match");
+            }
+            c = new Course { ID = course.ID, SubjectID = course.SubjectID, TeacherID = course.TeacherID };
+            bool edited = new CoursesRepository().Edit(c);
+            if(!edited){
+                return BadRequest("Course couldn't be edited");
+            }
+            return Ok(c);
+        }
+        [HttpPost]
+        [OverrideAuthorization]
+        [AllowAnonymous]
+        public IHttpActionResult Create(CreateCourseVM course)
+        {
+            if (course.TeacherID == null || course.SubjectID == null || course.TeacherID == "")
             {
                 return BadRequest();
             }
 
-            db.Entry(course).State = EntityState.Modified;
-
-            try
+            Course c = new Course { SubjectID = course.SubjectID, TeacherID = course.TeacherID };
+            bool created = new CoursesRepository().Add(c);
+            if (!created)
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CourseExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest("Dublicated data detected!");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Courses
-        [ResponseType(typeof(Course))]
-        public IHttpActionResult PostCourse(Course course)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Courses.Add(course);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = course.ID }, course);
-        }
-
-        // DELETE: api/Courses/5
-        [ResponseType(typeof(Course))]
-        public IHttpActionResult DeleteCourse(int id)
-        {
-            Course course = db.Courses.Find(id);
-            if (course == null)
-            {
-                return NotFound();
-            }
-
-            db.Courses.Remove(course);
-            db.SaveChanges();
-
-            return Ok(course);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool CourseExists(int id)
-        {
-            return db.Courses.Count(e => e.ID == id) > 0;
+            return Ok(c);
         }
     }
 }
