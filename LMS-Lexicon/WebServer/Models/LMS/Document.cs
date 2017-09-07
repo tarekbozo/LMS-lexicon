@@ -41,4 +41,28 @@ namespace WebServer.Models.LMS
         public string RoleID { get; set; }
         public virtual Role VisibleFor { get; set; }
     }
+    public class Assignment 
+    {
+        [Key]
+        public int ID { get; set; }
+        public virtual ICollection<Document> files { get; set; }
+
+        [ForeignKey("AssignmentFile")]
+        public int AssignmentFileID { get; set; }
+        public virtual Document AssignmentFile { get; set; }
+        public string AssignmentTheme { get; set; }
+        public DateTime Deadline { get; set; }
+        public Status Status { get; set; }
+        public string StudentComment { get; set; }
+        public string Link { get; set; }
+        public string TeacherComment { get; set; }
+
+    }
+    public enum Status
+    {
+        Completed,
+        Completion,
+        Examined,
+        NotFinnished
+    }
 }

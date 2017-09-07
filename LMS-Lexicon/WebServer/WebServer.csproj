@@ -283,6 +283,7 @@
     <Compile Include="Models\LMS\Document.cs" />
     <Compile Include="Models\LMS\Grade.cs" />
     <Compile Include="Models\LMS\Internship.cs" />
+    <Compile Include="Models\LMS\Lecture.cs" />
     <Compile Include="Models\LMS\News.cs" />
     <Compile Include="Models\LMS\Notification.cs" />
     <Compile Include="Models\LMS\Role.cs" />

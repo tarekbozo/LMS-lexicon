@@ -45,6 +45,7 @@ namespace WebServer.Models
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Internship> Internships { get; set; }
+        public DbSet<Assignment> Assignments { get; set; }
 
     }
 }
