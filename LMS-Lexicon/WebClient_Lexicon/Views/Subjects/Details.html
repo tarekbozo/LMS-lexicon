@@ -31,7 +31,8 @@
 </div>
 
 <p>
-    <a ng-if="subject.Courses.length==0" href="" ng-click="Edit">Edit</a><text ng-if="subject.Courses.length==0"> | </text>
+    <a ng-if="subject.Courses.length==0" href="/Subjects/Edit/{{subject.ID}}">Edit</a><text ng-if="subject.Courses.length==0"> | </text>
+    <a ng-if="subject.Courses.length==0" href="/Subjects/Delete/{{subject.ID}}">Delete</a><text ng-if="subject.Courses.length==0"> | </text>
     <a href="/Subjects">Back to Subjects</a>
 </p>
 </div>

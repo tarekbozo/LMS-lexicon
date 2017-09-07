@@ -14,6 +14,7 @@ using WebServer.Repository;
 
 namespace WebServer.Controllers.API
 {
+    [Authorize(Roles="Admin")]
     public class SubjectsController : ApiController
     {
         SubjectsRepository subRepo = new SubjectsRepository();
@@ -67,6 +68,8 @@ namespace WebServer.Controllers.API
             return _subjects;
         }
         [HttpPost]
+        [OverrideAuthorization]
+        [AllowAnonymous]
         public IHttpActionResult Create(Subject subject)
         {
             bool created = subRepo.Add(subject);

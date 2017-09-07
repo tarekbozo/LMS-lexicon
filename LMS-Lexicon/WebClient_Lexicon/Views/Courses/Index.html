@@ -1,0 +1,45 @@
+﻿<div>
+    <h2>Courses</h2>
+
+    <div ng-app="LMSApp" ng-init="getData()" ng-cloak>
+        <p>
+            <a href="/Courses/Create">Create a new Course</a>
+        </p>
+        <div class="left">
+            <form class="search glyphicon glyphicon-search" method="get">
+                <input type="text"
+                       class="round"
+                       name="Search"
+                       ng-model="searchTerm"
+                       placeholder="Free Search"
+                       style="width:120px; height:25px; font-family: Helvetica, Arial, sans-serif">
+            </form>
+        </div>
+        <table class="table">
+            <tr>
+                <th ng-click="orderByMe('Subject.Name')"><b>Subject</b></th>
+                <th ng-click="orderByMe('Teacher.LastName+Teacher.FirstName')"><b>Teacher</b></th>
+            </tr>
+            <tr ng-repeat="course in courses | orderBy:myOrderBy:reverse | filter:searchTerm ">
+                <td>{{course.Subject.Name}}</td>
+                <td ng-show="course.Teacher.HasSchedules">
+                    <a data-ng-href="/Teachers/Planning?teacherId={{course.Teacher.Id}}">
+                        {{course.Teacher.FirstName}} {{course.Teacher.LastName}}
+                    </a>
+                </td>
+                <td ng-hide="course.Teacher.HasSchedules">
+                    {{course.Teacher.FirstName}} {{course.Teacher.LastName}}
+                </td>
+                <td>
+                    <span ng-show="course.IsDeletable">
+                        <a href="/Courses/Edit/{{course.ID}}">Edit</a> |
+                    </span>
+                    <a href="/Courses/Details/{{course.ID}}">Details</a>
+                    <span ng-show="course.IsDeletable">
+                        | <a href="/Courses/Delete/{{course.ID}}">Remove</a>
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

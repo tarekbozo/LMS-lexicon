@@ -108,6 +108,26 @@
             templateUrl: 'Views/Subjects/Delete.html',
             controller: 'Subjects_CreateDeleteEditController'
         }).
+        when('/Courses/Delete/:courseid', {
+            templateUrl: 'Views/Courses/Delete.html',
+            controller: 'Courses_Delete_Ctrl'
+        }).
+        when('/Courses/Details/:courseid', {
+            templateUrl: 'Views/Courses/Details.html',
+            controller: 'Courses_Details_Ctrl'
+        }).
+        when('/Courses', {
+            templateUrl: 'Views/Courses/Index.html',
+            controller: 'Courses_Index_Ctrl'
+        }).
+        when('/Courses/Edit/:courseid', {
+            templateUrl: 'Views/Courses/Edit.html',
+            controller: 'Courses_Edit_Ctrl'
+        }).
+        when('/Courses/Create', {
+            templateUrl: 'Views/Courses/Create.html',
+            controller: 'Courses_Create_Ctrl'
+        }).
         otherwise({
             redirectTo: '/'
         });

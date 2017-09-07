@@ -1,0 +1,29 @@
+﻿<div>
+<h2>Edit a Course {{course.Subject.Name}}({{course.Teacher.FirstName}} {{course.Teacher.LastName}})</h2>
+
+<form method="put">
+    <div class="form-horizontal" ng-cloak>
+        <hr />
+        <div class="form-group" ng-init="Start()">
+            <b class="control-label col-md-2" ng-click="orderByMe('LastName')">New Teacher</b>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10">
+                <select ng-model="teacher" class="form-control">
+                    <option ng-repeat="teacher in teachers | orderBy:myOrderBy:reverse" value="{{teacher.Id}}">{{teacher.FirstName}} {{teacher.LastName}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" ng-click="Edit()" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+<div>
+    <a href="/Courses">Back to Courses</a>
+</div>
+</div>
