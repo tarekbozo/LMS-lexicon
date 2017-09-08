@@ -61,7 +61,10 @@ namespace WebServer.Repository
         {
             return Users().FirstOrDefault(u => string.Compare(u.UserName, userName, true) == 0);
         }
-
+        public User UserByEmail(string email)
+        {
+            return Users().FirstOrDefault(u => string.Compare(u.Email, email, true) == 0);
+        }
         public IEnumerable<User> UsersByUsersname(string userName)
         {
             string[] split = userName.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);

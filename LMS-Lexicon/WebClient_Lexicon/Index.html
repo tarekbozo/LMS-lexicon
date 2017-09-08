@@ -5,11 +5,11 @@
     <link rel="stylesheet" href="Content/bootstrap.css" type="text/css" />
     <!--<link rel="stylesheet" href="Content/bootstrap-Slate.css" type="text/css"/>-->
     <link rel="stylesheet" href="Content/Site.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>LMSApp</title>
     <base href="/">
 </head>
 <body data-ng-app="LMSApp">
-    {{vm.userId}}
     <div ng-controller="AccountCtrl as vm">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -54,6 +54,9 @@
                         <li>
                             <a href="/News/AdminIndex">News management</a>
                         </li>
+                        <li>
+                            <a href="/Messages/">Mailbox</a>
+                        </li>
                     </ul>
 
                     <ul ng-if="vm.user.Role=='Teacher'" class="nav navbar-nav">
@@ -93,6 +96,9 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="/Messages/">Mailbox</a>
+                        </li>
                     </ul>
 
                     <ul ng-if="vm.user.Role=='Student'" class="nav navbar-nav">
@@ -123,6 +129,9 @@
 
                             <a href="Students/MyGrades" ng-if="UnreadNotifications>0">My Grades({{UnreadNotifications}})</a>
                             <a href="Students/MyGrades" ng-if="UnreadNotifications<=0 || UnreadNotifications==undefined">My Grades</a>
+                        </li>
+                        <li>
+                            <a href="/Messages/">Mailbox</a>
                         </li>
                     </ul>
                 </div>
@@ -161,5 +170,6 @@
     <script src="Scripts/Angular/Subjects/Subjects.js"></script>
     <script src="Scripts/Angular/Courses/Courses.js"></script>
     <script src="Scripts/Angular/Document/Document.js"></script>
+    <script src="Scripts/Angular/Messages/Messages.js"></script>
 </body>
 </html>

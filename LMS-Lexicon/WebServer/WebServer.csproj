@@ -265,6 +265,7 @@
     <Compile Include="Controllers\API\GradesAPIController.cs" />
     <Compile Include="Controllers\API\HomeController.cs" />
     <Compile Include="Controllers\API\InternshipsAPIController.cs" />
+    <Compile Include="Controllers\API\MessagesController.cs" />
     <Compile Include="Controllers\API\NewsAPIController.cs" />
     <Compile Include="Controllers\API\NotificationsAPIController.cs" />
     <Compile Include="Controllers\API\SchedulesAPIController.cs" />
@@ -283,6 +284,8 @@
     <Compile Include="Models\LMS\Document.cs" />
     <Compile Include="Models\LMS\Grade.cs" />
     <Compile Include="Models\LMS\Internship.cs" />
+    <Compile Include="Models\LMS\Lecture.cs" />
+    <Compile Include="Models\LMS\Message.cs" />
     <Compile Include="Models\LMS\News.cs" />
     <Compile Include="Models\LMS\Notification.cs" />
     <Compile Include="Models\LMS\Role.cs" />
@@ -296,6 +299,7 @@
     <Compile Include="Repository\DocumentRepository.cs" />
     <Compile Include="Repository\GradeRepository.cs" />
     <Compile Include="Repository\InternshipRepository.cs" />
+    <Compile Include="Repository\MailRepository.cs" />
     <Compile Include="Repository\NewsRepository.cs" />
     <Compile Include="Repository\NotificationRepository.cs" />
     <Compile Include="Repository\RolesRepository.cs" />
@@ -306,6 +310,7 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CreateCourseVM.cs" />
+    <Compile Include="ViewModels\CreateMessageVM.cs" />
     <Compile Include="ViewModels\EditCourseVM.cs" />
     <Compile Include="ViewModels\PartialCourseVM.cs" />
     <Compile Include="ViewModels\PartialUserVM.cs" />

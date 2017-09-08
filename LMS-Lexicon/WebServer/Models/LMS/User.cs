@@ -28,7 +28,8 @@ namespace WebServer.Models.LMS
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<Schedule> Schedules { get; set; }
         public virtual ICollection<Attendance> Attendances { get; set; }
-
+        public virtual ICollection<Assignment> Assignments { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
         [ForeignKey("Internship")]
         public int? InternshipID { get; set; }
         public virtual Internship Internship { get; set; } 

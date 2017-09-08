@@ -96,6 +96,7 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\Angular\Messages\Messages.js" />
     <Content Include="Scripts\Angular\Subjects\Subjects.js" />
     <Content Include="Scripts\Angular\Users\Users.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
@@ -901,6 +902,8 @@
     <Content Include="Views\Document\UploadDocument.html" />
     <Content Include="Views\Document\Index.html" />
     <Content Include="Views\Home\Home.html" />
+    <Content Include="Views\Messages\Index.html" />
+    <Content Include="Views\Messages\Send.html" />
     <Content Include="Views\Subjects\Create.html" />
     <Content Include="Views\Subjects\Delete.html" />
     <Content Include="Views\Subjects\Details.html" />
