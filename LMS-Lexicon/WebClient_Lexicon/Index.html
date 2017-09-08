@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="Content/bootstrap.css" type="text/css" />
     <!--<link rel="stylesheet" href="Content/bootstrap-Slate.css" type="text/css"/>-->
     <link rel="stylesheet" href="Content/Site.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>LMSApp</title>
     <base href="/">
 </head>
@@ -53,6 +54,9 @@
                         <li>
                             <a href="/News/AdminIndex">News management</a>
                         </li>
+                        <li>
+                            <a href="/Messages/">Mailbox</a>
+                        </li>
                     </ul>
 
                     <ul ng-if="vm.user.Role=='Teacher'" class="nav navbar-nav">
@@ -91,6 +95,9 @@
                                     <a href="/Teachers/NextLecture">Next Lecture</a>
                                 </li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="/Messages/">Mailbox</a>
                         </li>
                     </ul>
 

@@ -11,16 +11,22 @@
     </div>
     <table class="table">
         <tr>
-            <th ng-click="orderByMe('Sent')">Sent</th>
+            <th>
+                <input type="submit" ng-click="Inbox()" value="Inbox"/>
+                <input type="submit" ng-click="Sent()" value="Sent" />
+                <input type="submit" ng-click="Favorite()" value="Favorite" />
+                <input type="submit" ng-click="Important()" value="Important" />
+                <input type="submit" ng-click="Trash()" value="Trash" />
+            </th>
+
             <th></th>
         </tr>
-        <tr ng-repeat="mail in messages | orderBy:myOrderBy:reverse | filter:searchTerm ">
-            <td>{{message}}</td>
-            <td>
-                <span ng-show="subject.Courses == null"><a href="/Subjects/Edit/{{message.ID}}">Edit</a> | </span>
-                <a href="/Subjects/Details/{{message.ID}}">Details</a>
-                <span ng-show="subject.Courses==null"> | <a href="/Subjects/Delete/{{message.ID}}">Remove</a></span>
-            </td>
+        <tr id="{{mail.ID}}" ng-repeat="mail in messages | orderBy:myOrderBy:reverse | filter:searchTerm ">
+            <td ng-if="mail.Sender.UserName == user.UserName"><a href="/Messages/Details/{{mail.ID}}">mig,{{mail.Reciever.UserName}}</a></td>
+            <td ng-if="mail.Sender.UserName != user.UserName"><a href="/Messages/Details/{{mail.ID}}">{{mail.Sender.UserName}}</a></td>
+            <td ng-click="Favorite()"><i class="material-icons" style="font-size:24px;color:black;" id="favorite">star</i></td>
+            <td>{{mail.Description}}</td>
+            <td>{{mail.Sent}}</td>
         </tr>
     </table>
 </div>

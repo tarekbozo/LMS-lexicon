@@ -132,6 +132,10 @@
             templateUrl: 'Views/Messages/Index.html',
             controller: 'Messages_Index_Ctrl'
         }).
+        when('/Messages/Send', {
+            templateUrl: 'Views/Messages/Send.html',
+            controller: 'Messages_Send_Ctrl'
+        }).
         otherwise({
             redirectTo: '/'
         });

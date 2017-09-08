@@ -7,6 +7,7 @@ namespace WebServer.ViewModels
 {
     public class CreateMessageVM
     {
+        public string Description { get; set; }
         public string MessageContent { get; set; }
         public string EmailFrom { get; set; }
         public string EmailTo { get; set; }

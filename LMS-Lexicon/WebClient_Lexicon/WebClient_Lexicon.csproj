@@ -903,6 +903,7 @@
     <Content Include="Views\Document\Index.html" />
     <Content Include="Views\Home\Home.html" />
     <Content Include="Views\Messages\Index.html" />
+    <Content Include="Views\Messages\Send.html" />
     <Content Include="Views\Subjects\Create.html" />
     <Content Include="Views\Subjects\Delete.html" />
     <Content Include="Views\Subjects\Details.html" />

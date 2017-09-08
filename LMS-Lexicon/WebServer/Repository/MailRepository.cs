@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using WebServer.Models;
@@ -11,9 +12,9 @@ namespace WebServer.Repository
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public IQueryable<Message> Messages(string email)
+        public IQueryable<Message> Messages(string user)
         {
-                return db.Messages.Where(m => m.Reciever.Email==email || m.Sender.Email==email);
+            return db.Messages.Where(m => m.Sender.Email == user && m.PermantDelete2 == false || m.Sender.UserName == user && m.PermantDelete2 == false || m.Reciever.Email == user && m.PermantDelete == false || m.Reciever.UserName == user && m.PermantDelete == false);
         }
 
         public Message Message(int? id)
@@ -23,6 +24,7 @@ namespace WebServer.Repository
 
         public void Add(Message message)
         {
+            message.Sent = DateTime.Now;
             db.Messages.Add(message);
             SaveChanges();
         }
@@ -36,27 +38,51 @@ namespace WebServer.Repository
                 if (message.Reciever != null)
                 {
                     if(email==message.Reciever.Email){
-                        message.Reciever = null;
-                        message.RecieverId = null;
+                        if (message.Trash == false)
+                        {
+                            message.Trash = true;
+                        }
+                        else if (message.PermantDelete == false)
+                        {
+                            message.PermantDelete = true;
+                        }
                     }
                 }
                 if (message.Sender != null)
                 {
                     if (email == message.Sender.Email)
                     {
-                        message.Sender = null;
-                        message.SenderId = null;
+                        if (message.Trash2 == false)
+                        {
+                            message.Trash2 = true;
+                        }
+                        else if (message.PermantDelete2 == false)
+                        {
+                            message.PermantDelete2 = true;
+                        }
                     }
                 }
 
-                if (message.Sender == null && message.Reciever == null)
+                if (message.PermantDelete==true && message.PermantDelete2==true)
                 {
                     db.Messages.Remove(Message(id));
                     SaveChanges();
                 }
+                else
+                {
+                    message.Sender = null;
+                    message.Reciever = null;
+
+                    Edit(message);
+                    SaveChanges();
+                }
             }
         }
-
+        public void Edit(Message message)
+        {
+            db.Entry(message).State = EntityState.Modified;
+            SaveChanges();
+        }
         private void SaveChanges()
         {
             db.SaveChanges();

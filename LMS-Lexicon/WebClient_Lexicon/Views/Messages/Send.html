@@ -1,0 +1,10 @@
+﻿<div>
+    <h3>Send Mail</h3>
+    <form method="post">
+        <input type="hidden" ng-model="user.Email" />
+        <input type="email" ng-model="EmailTo" placeholder="Send to Email" />
+        <input type="text" ng-model="description" placeholder="Description"/>
+        <input type="text" ng-model="messageContent" placeholder="Mail content" />
+        <input type="submit" ng-click="Send()" value="Send"/>
+    </form>
+</div>
