@@ -12,21 +12,32 @@
     <table class="table">
         <tr>
             <th>
-                <input type="submit" ng-click="Inbox()" value="Inbox"/>
-                <input type="submit" ng-click="Sent()" value="Sent" />
-                <input type="submit" ng-click="Favorite()" value="Favorite" />
-                <input type="submit" ng-click="Important()" value="Important" />
-                <input type="submit" ng-click="Trash()" value="Trash" />
-            </th>
+                <i class="glyphicon glyphicon-refresh" style="cursor:pointer; color:black; font-size: 20px;" ng-click="refresh()"></i>                
+                <input type="submit" ng-click="getInbox()" value="Inbox"/>
+                <input type="submit" ng-click="getSent()" value="Sent" />
+                <input type="submit" ng-click="getFavorite()" value="Favorite" />
+                <input type="submit" ng-click="getImportant()" value="Important" />
+                <input type="submit" ng-click="getTrash()" value="Trash" />
+                <h4>{{label}}</h4>
 
+            </th>
             <th></th>
         </tr>
-        <tr id="{{mail.ID}}" ng-repeat="mail in messages | orderBy:myOrderBy:reverse | filter:searchTerm ">
+        <tr id="{{mail.ID}}" ng-repeat="mail in messages | orderBy:myOrderBy:reverse |filter:InitialFilter | filter:searchTerm |filter:buttonFilter">
             <td ng-if="mail.Sender.UserName == user.UserName"><a href="/Messages/Details/{{mail.ID}}">mig,{{mail.Reciever.UserName}}</a></td>
             <td ng-if="mail.Sender.UserName != user.UserName"><a href="/Messages/Details/{{mail.ID}}">{{mail.Sender.UserName}}</a></td>
-            <td ng-click="Favorite()"><i class="material-icons" style="font-size:24px;color:black;" id="favorite">star</i></td>
+            <td>{{mail.Owned}}</td>
+            <td data="{{mail.ID}}"data-ng-click="setFavorite(mail.ID)">
+                <i ng-if="mail.Favorite==false" class="glyphicon glyphicon-star" style="cursor:pointer;color:black; font-size: 20px;"></i>
+                <i ng-if="mail.Favorite==true" class="glyphicon glyphicon-star" style="cursor:pointer;color:gold; font-size: 20px;"></i>
+            </td>
+            <td data="{{mail.ID}}"data-ng-click="setImportant(mail.ID)">
+                <i ng-if="mail.Important==false" class="glyphicon glyphicon-exclamation-sign" style="cursor:pointer;color:black; font-size: 20px;"></i>
+                <i ng-if="mail.Important==true" class="glyphicon glyphicon-exclamation-sign" style="cursor:pointer;color: red; font-size: 20px;"></i>
+            </td>
             <td>{{mail.Description}}</td>
             <td>{{mail.Sent}}</td>
+            <td><a style="cursor:pointer;" ng-if="mail.Trash==true" data="{{mail.ID}}" data-ng-click="setTrash(mail.ID)"><i class="glyphicon glyphicon-remove" style="cursor:pointer;color: black; font-size: 20px;"></i>Undo</a><br ng-if="mail.Trash==true"/><a style="cursor:pointer;" data="{{mail.ID}}"data-ng-click="Delete(mail.ID)"><i class="glyphicon glyphicon-trash" style="cursor:pointer;color: black; font-size: 20px;"></i>Delete</a></td>
         </tr>
     </table>
 </div>

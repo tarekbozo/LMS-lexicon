@@ -14,9 +14,26 @@ namespace WebServer.Repository
 
         public IQueryable<Message> Messages(string user)
         {
-            return db.Messages.Where(m => m.Sender.Email == user && m.PermantDelete2 == false || m.Sender.UserName == user && m.PermantDelete2 == false || m.Reciever.Email == user && m.PermantDelete == false || m.Reciever.UserName == user && m.PermantDelete == false);
+            List<Message> Messages = new List<Message>();
+            foreach(Message m in db.Messages.Where(m => m.Sender.Email == user || m.Reciever.Email == user || m.Sender.UserName == user || m.Reciever.UserName == user))
+            {
+                if(m.Sender.UserName==user || m.Sender.Email == user)
+                {
+                    if (m.PermantDelete2 == false)
+                    {
+                        Messages.Add(m);
+                    }
+                }
+                else
+                {
+                    if (m.PermantDelete == false)
+                    {
+                        Messages.Add(m);
+                    }
+                }
+            }
+            return Messages.AsQueryable();
         }
-
         public Message Message(int? id)
         {
             return db.Messages.SingleOrDefault(s => s.ID == id);
@@ -70,8 +87,6 @@ namespace WebServer.Repository
                 }
                 else
                 {
-                    message.Sender = null;
-                    message.Reciever = null;
 
                     Edit(message);
                     SaveChanges();
