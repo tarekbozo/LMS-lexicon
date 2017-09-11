@@ -15,6 +15,7 @@ using WebServer.ViewModels;
 
 namespace WebServer.Controllers.API
 {
+    //Courses API Controller
     [Authorize(Roles="Admin")]
     public class CoursesController : ApiController
     {

@@ -192,6 +192,9 @@
                 }).then(function (response) {
                     alert("Message is sent");
                     window.location.href = "/Messages";
+                }).then(function (err) {
+                    $scope.ErrorMessage = "Message Couldn't be sent!";
+                    alert("Couldn't send message");
                 })
             });
         };

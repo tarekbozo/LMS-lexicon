@@ -19,7 +19,7 @@ using WebServer.ViewModels;
 
 namespace WebServer.Controllers
 {
-    //some random comment ebcause of a code lock
+    //Document controller, need a redo. 
     public class DocumentsAPIController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

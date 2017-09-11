@@ -12,6 +12,7 @@ using System.IO;
 
 namespace WebServer.Controllers
 {
+    //This controller will be the news controller later - it's for the home page
     public class HomeController : ApiController
     {
         // GET api/values

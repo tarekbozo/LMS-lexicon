@@ -55,7 +55,7 @@
         }];
 
     }]);
-
+    //All Angular Routings
     app.config(
         function ($locationProvider, $routeProvider) {
         $locationProvider.html5Mode(true);

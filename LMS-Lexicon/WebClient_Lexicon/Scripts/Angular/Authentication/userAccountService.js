@@ -49,9 +49,6 @@
         }
 
         function registerUser(userData) {
-
-            //userData.BirthDate = userData.BirthDate.toDateString();
-            //    console.log(userData);
             var accountUrl = serverBaseUrl + "/api/Account/Register/";
             var deferred = $q.defer();
             var config = { headers: getHeaders() };
@@ -95,7 +92,6 @@
                 // save the access_token as this is required for each API call. 
                 accessToken = response.data.access_token;
                 sessionStorage.setItem("token", accessToken);
-                // check the log screen to know currently back from the server when a user log in successfully.
                 console.log(response.data);
                 deferred.resolve(response.data);
             }, function (err) {
@@ -133,7 +129,6 @@
             })
             return deferred.promise;
         }
-        // we have to include the Bearer token with each call to the Web API controllers. 
         function getHeaders() {
             if (accessToken) {
                 return { "Authorization": "Bearer " + accessToken, 'Content-Type': 'application/json' };

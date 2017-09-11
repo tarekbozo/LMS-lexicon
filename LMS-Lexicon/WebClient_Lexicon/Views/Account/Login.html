@@ -1,5 +1,6 @@
-﻿    <div data-ng-if="vm.isLoggedIn=='false'||!vm.isLoggedIn">
-        <span>Login</span>
+﻿   <div class="form-horizontal" data-ng-if="vm.isLoggedIn=='false'||!vm.isLoggedIn">
+        <br />
+        <h2 class="text-primary">Login</h2>
         <div>
             <input class="form-control" type="text" name="email" placeholder="Email" data-ng-model="vm.loginUserData.userName" />
             <input class="form-control" type="password" name="password" placeholder="Password" data-ng-model="vm.loginUserData.password" />

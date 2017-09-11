@@ -22,6 +22,7 @@ using WebServer.Repository;
 
 namespace WebServer.Controllers
 {
+    //Account API Controller
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController

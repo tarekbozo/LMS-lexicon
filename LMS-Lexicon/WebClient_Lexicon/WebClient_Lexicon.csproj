@@ -60,11 +60,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\Angular\Attendance\Attendance.js" />
-    <Content Include="Scripts\Angular\Classroom\Classroom.js" />
     <Content Include="Scripts\Angular\Courses\Courses.js" />
     <Content Include="Scripts\Angular\Document\Document.js" />
-    <Content Include="Scripts\Angular\Grade\Grade.js" />
     <Content Include="Scripts\Angular\Main.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Index.html" />
@@ -916,16 +913,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Attendance\" />
-    <Folder Include="Views\Classroom\" />
-    <Folder Include="Views\Grade\" />
-    <Folder Include="Views\Intership\" />
-    <Folder Include="Views\News\" />
-    <Folder Include="Views\Notification\" />
-    <Folder Include="Views\Role\" />
-    <Folder Include="Views\Schedule\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

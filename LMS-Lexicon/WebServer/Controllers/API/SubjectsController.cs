@@ -14,6 +14,7 @@ using WebServer.Repository;
 
 namespace WebServer.Controllers.API
 {
+    //Subject API Controller
     [Authorize(Roles="Admin")]
     public class SubjectsController : ApiController
     {

@@ -16,6 +16,7 @@ using WebServer.Repository;
 
 namespace WebServer.Controllers.API
 {
+    //Need some work to do here
     [Authorize(Roles="Admin,Teacher")]
     public class AttendancesController : ApiController
     {
@@ -84,6 +85,7 @@ namespace WebServer.Controllers.API
             aRepo.Add(attendance);
             return CreatedAtRoute("DefaultApi", new { id = attendance.ID }, attendance);
         }
+        //a method for downloading an antendece list as excel file
         [HttpGet]
         public IHttpActionResult GetAttendanceAsXLSFile(int id)
         {
@@ -93,7 +95,7 @@ namespace WebServer.Controllers.API
                 //Create an instance of ExcelEngine.
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
-                    //Set the default Excel-version  -  New Excel have backcompatible with older Excel but an old Excel can't access new Excel so therefor we set the ExcelVersion to be as low as possible.
+                    //Set the default Excel-version  -  New Excel is back compatible with older Excel but an old Excel can't access new Excel so therefor we set the ExcelVersion to be as low as possible.
                     excelEngine.Excel.DefaultVersion = ExcelVersion.Excel97to2003;
                     //Create a workbook with a worksheet.
                     IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1); //We only need one Excel page

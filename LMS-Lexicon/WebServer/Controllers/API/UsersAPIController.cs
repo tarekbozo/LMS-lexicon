@@ -16,6 +16,7 @@ using Microsoft.AspNet.Identity;
 
 namespace WebServer.Controllers
 {
+    //A controller for User information
     [Authorize(Roles = "Admin,Student,Teacher")]
     public class UsersAPIController : ApiController
     {
