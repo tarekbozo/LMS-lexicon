@@ -136,6 +136,10 @@
             templateUrl: 'Views/Messages/Send.html',
             controller: 'Messages_Send_Ctrl'
         }).
+        when('/Messages/Details/:mID', {
+            templateUrl: 'Views/Messages/Details.html',
+            controller: 'Messages_Details_Ctrl'
+        }).
         otherwise({
             redirectTo: '/'
         });

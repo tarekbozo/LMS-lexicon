@@ -75,30 +75,52 @@ namespace WebServer.Controllers.API
             if(m==null){
                 return BadRequest("Couldn't find Message with ID of "+ID);
             }
-            return Ok(new Message
+
+            MessageVM message = new MessageVM();
+            message.ID = m.ID;
+            message.Content = m.MailContent;
+            message.Description = m.Description;
+
+            if (m.Reciever.UserName == User.Identity.GetUserName())
             {
-                ID = m.ID,
-                Sent = m.Sent,
-                Readed = m.Readed,
-                Favorite = m.Favorite,
-                Favorite2 = m.Favorite2,
-                Important = m.Important,
-                Important2 = m.Important2,
-                MailContent = m.MailContent,
-                PermantDelete = m.PermantDelete,
-                PermantDelete2 = m.PermantDelete2,
-                Trash = m.Trash,
-                Trash2 = m.Trash2,
-                Reciever = new User { 
-                    Email=m.Reciever.Email,
-                    UserName=m.Reciever.UserName
-                },
-                Sender = new User{
-                    Email=m.Sender.Email,
-                    UserName=m.Sender.UserName
-                },
-                Description=m.Description
-            });
+                message.Favorite = m.Favorite;
+                message.Important = m.Important;
+                message.PermantDelete = m.PermantDelete;
+                message.Trash = m.Trash;
+            }
+            else
+            {
+                message.Favorite = m.Favorite2;
+                message.Important = m.Important2;
+                message.PermantDelete = m.PermantDelete2;
+                message.Trash = m.Trash2;
+            }
+
+            message.Readed = m.Readed;
+            message.Sent = m.Sent;
+            message.Sender = new User
+            {
+                Id = m.Sender.Id,
+                BirthDate = m.Sender.BirthDate,
+                UserName = m.Sender.UserName,
+                Email = m.Sender.Email,
+                FirstName = m.Sender.FirstName,
+                LastName = m.Sender.LastName,
+                PhoneNumber = m.Sender.PhoneNumber
+            };
+            message.Reciever = new User
+            {
+                Id = m.Reciever.Id,
+                BirthDate = m.Reciever.BirthDate,
+                UserName = m.Reciever.UserName,
+                Email = m.Reciever.Email,
+                FirstName = m.Reciever.FirstName,
+                LastName = m.Reciever.LastName,
+                PhoneNumber = m.Reciever.PhoneNumber
+            };
+            message.Owned = message.Sender.UserName == User.Identity.GetUserName();
+
+            return Ok(message);
         }
         [HttpPost]
         public IHttpActionResult Send(CreateMessageVM message)
@@ -107,14 +129,25 @@ namespace WebServer.Controllers.API
                 return BadRequest();
             }
             if (new UsersRepository().UserByEmail(message.EmailFrom) == null || new UsersRepository().UserByEmail(message.EmailTo) == null){
-                return BadRequest("Email Couldn't be found");
+                if (new UsersRepository().UserByUsername(message.EmailFrom) == null || new UsersRepository().UserByUsername(message.EmailTo) == null)
+                {
+                    return BadRequest("User Couldn't be found");
+                }
             }
             if (message.MessageContent == null || message.MessageContent == "")
             {
                 return BadRequest("No Content to send.");
             }
-            new MailRepository().Add(new Message { Description=message.Description, MailContent=message.MessageContent, RecieverId=new UsersRepository().UserByEmail(message.EmailTo).Id, SenderId=new UsersRepository().UserByEmail(message.EmailFrom).Id});
-            return Ok();
+            
+            if (new UsersRepository().UserByEmail(message.EmailFrom) != null && new UsersRepository().UserByEmail(message.EmailTo) != null)
+            {
+                new MailRepository().Add(new Message { Description = message.Description, MailContent = message.MessageContent, RecieverId = new UsersRepository().UserByEmail(message.EmailTo).Id, SenderId = new UsersRepository().UserByEmail(message.EmailFrom).Id });
+            }
+            else
+            {
+                new MailRepository().Add(new Message { Description = message.Description, MailContent = message.MessageContent, RecieverId = new UsersRepository().UserByUsername(message.EmailTo).Id, SenderId = new UsersRepository().UserByUsername(message.EmailFrom).Id });
+            }
+                return Ok();
         }
         [HttpDelete]
         public IHttpActionResult Delete(Message message)

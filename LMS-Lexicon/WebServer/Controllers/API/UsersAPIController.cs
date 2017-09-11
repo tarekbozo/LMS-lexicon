@@ -50,7 +50,16 @@ namespace WebServer.Controllers
                               u.News.Count == 0
             }).ToList();
         }
-
+        [OverrideAuthorization]
+        [Authorize]
+        public List<PartialUserVM> GetCompromisedUsers()
+        {
+            return repository.Users().Select(u => new PartialUserVM
+            {
+                UserName = u.UserName,
+                Email = u.Email,
+            }).ToList();
+        }
         // GET: Students
         [OverrideAuthorization]
         [Authorize(Roles = "Admin")]

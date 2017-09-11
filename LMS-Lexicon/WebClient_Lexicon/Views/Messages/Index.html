@@ -26,7 +26,6 @@
         <tr id="{{mail.ID}}" ng-repeat="mail in messages | orderBy:myOrderBy:reverse |filter:InitialFilter | filter:searchTerm |filter:buttonFilter">
             <td ng-if="mail.Sender.UserName == user.UserName"><a href="/Messages/Details/{{mail.ID}}">mig,{{mail.Reciever.UserName}}</a></td>
             <td ng-if="mail.Sender.UserName != user.UserName"><a href="/Messages/Details/{{mail.ID}}">{{mail.Sender.UserName}}</a></td>
-            <td>{{mail.Owned}}</td>
             <td data="{{mail.ID}}"data-ng-click="setFavorite(mail.ID)">
                 <i ng-if="mail.Favorite==false" class="glyphicon glyphicon-star" style="cursor:pointer;color:black; font-size: 20px;"></i>
                 <i ng-if="mail.Favorite==true" class="glyphicon glyphicon-star" style="cursor:pointer;color:gold; font-size: 20px;"></i>

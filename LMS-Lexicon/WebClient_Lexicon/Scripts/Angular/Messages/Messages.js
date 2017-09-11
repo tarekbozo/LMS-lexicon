@@ -155,6 +155,16 @@
     }]);
     //SendMail
     app.controller("Messages_Send_Ctrl", ["$scope", "$http", function ($scope, $http) {
+        $scope.StartDataGatherer = function () {
+            var _url = serverBaseUrl + "/api/UsersAPI/GetCompromisedUsers";
+            $http({
+                method: 'GET',
+                url: _url,
+                headers: getHeaders(),
+            }).then(function (response) {
+                $scope.users = response.data;
+            })
+        };
         $scope.Send = function () {
             var message;
             var _url = serverBaseUrl + "/api/UsersAPI/GetUserInfoFromCurrentUser?userName=" + sessionStorage.getItem("username");
@@ -170,6 +180,9 @@
                     EmailFrom: $scope.user.Email,
                     EmailTo: $scope.EmailTo
                 };
+                if (message.EmailTo == "" || message.EmailTo == null) {
+                    message.EmailTo = $scope.selectedEmail;
+                }
                 _url = serverBaseUrl + "/api/Messages/Send";
                 $http({
                     method: 'POST',
@@ -178,12 +191,25 @@
                     headers: getHeaders(),
                 }).then(function (response) {
                     alert("Message is sent");
+                    window.location.href = "/Messages";
                 })
             });
         };
 
     }]);
+    //Details
+    app.controller("Messages_Details_Ctrl", ["$scope", "$http", function ($scope, $http) {
+        var n = window.location.href.lastIndexOf('/');
+        $scope.username = sessionStorage.getItem("username");
+        $scope.Details = function () {
+            $http.get(serverBaseUrl + '/api/Messages/GetMessage?ID=' + window.location.href.substring(n + 1), option)
+                .then(function (response) {
+                    $scope.message = response.data;
+                });
 
+        };
+
+    }]);
     function getHeaders() {
         return { "Authorization": "Bearer " + sessionStorage.getItem("token"), 'Content-Type': 'application/json' };
     }

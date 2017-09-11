@@ -1,10 +1,12 @@
-﻿<div>
+﻿<div ng-init="StartDataGatherer()">
     <h3>Send Mail</h3>
     <form method="post">
         <input type="hidden" ng-model="user.Email" />
+        <select ng-model="selectedEmail"><option value="">Choose a User or write it down</option><option ng-repeat="user in users" value="{{user.Email}}">{{user.UserName}}</option></select>
         <input type="email" ng-model="EmailTo" placeholder="Send to Email" />
-        <input type="text" ng-model="description" placeholder="Description"/>
+        <input type="text" ng-model="description" placeholder="Description" />
         <input type="text" ng-model="messageContent" placeholder="Mail content" />
-        <input type="submit" ng-click="Send()" value="Send"/>
+        <input type="submit" ng-click="Send()" value="Send" />
     </form>
+    <a href="/Messages">Back to Mailbox</a>
 </div>

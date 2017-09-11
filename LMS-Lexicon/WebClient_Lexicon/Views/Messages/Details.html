@@ -1,0 +1,16 @@
+﻿<div ng-init="Details()">
+    <h2 ng-if="message.Sender.UserName==username">mig <i class="glyphicon glyphicon-arrow-right" style="color:black; font-size: 20px;"></i>
+ {{message.Reciever.UserName}} - {{message.Description}}</h2>
+    <h2 ng-if="message.Sender.UserName!=username">
+        {{message.Sender.UserName}} <i class="glyphicon glyphicon-arrow-right" style="color:black; font-size: 20px;"></i>
+        mig - {{message.Description}}
+    </h2>
+    <h4 class="text-right">{{message.Sent}}</h4>
+    <div class="text-left body-content" style="font-size: 20px;">
+       {{message.Content}}
+    </div>
+
+    <p>
+        <a href="/Messages">Back to Mailbox</a>
+    </p>
+</div>
